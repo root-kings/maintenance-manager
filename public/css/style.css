@@ -28,3 +28,11 @@ footer {
 .chart {
     min-height: 35vh;
 }
+
+.btn-bordered {
+    /* border-radius: 8px; 
+    overflow: hidden; */
+    box-sizing: content-box;
+    border: 1px solid #aaaaaa80;
+    margin-right: 5px;
+}

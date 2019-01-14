@@ -2,23 +2,68 @@ extends components/layout.pug
 
 block styles
 
+
+
 block content
     .green.darken-2
-        .container
-            .row
-                .col.s12
-                    h3.header.light.white-text Upcoming
-        .divider.green.darken-5
-
-    //- .container
-        .row
+        .row.hide-on-med-and-down
             .col.s12
-                h3.header.light.green-text.text-darken-2 Metrics
-    .divider
-
-    .container
+                h4.header.light.white-text Dashboard
         .row
-            .col.s6.l3 hello
+            ul.tabs.tabs-transparent
+                li.tab.col.s6.l3
+                    a(href="#upcoming") Upcoming
+                li.tab.col.s6.l3
+                    a(href="#machines") Machines
+    
+            .divider.green.darken-5
+
+    #upcoming
+        .row
+            .col.s12.m6
+                .card
+                    .card-content
+                        span.card-title.grey-text.text-darken-4 Machine name
+                            a(href="#").orange-text
+                                i.material-icons.right star
+                        - var date = new Date()
+                        p #{date} 
+                    .card-action
+                        a.btn.btn-flat.btn-bordered.curvy(href="#") Done
+                            i.material-icons.left done
+                        a.btn.btn-flat.btn-bordered.curvy(href="#") Later
+                            i.material-icons.left access_time
+                        a.btn.btn-flat.btn-bordered.curvy(href="#") View
+                            i.material-icons.left visibility
+
+                        
+        //-ul.collapsible
+            li
+                .collapsible-header 
+                    - var date = '23/3/4567'
+                    i.material-icons filter_drama
+                    span.red-text #{date}
+                    
+                    
+                .collapsible-body
+                    span Lorem ipsum dolor sit amet.
+            li
+                .collapsible-header
+                    i.material-icons place
+                    | Second
+                .collapsible-body
+                    span Lorem ipsum dolor sit amet.
+            li
+                .collapsible-header
+                    i.material-icons whatshot
+                    | Third
+                .collapsible-body
+                    span Lorem ipsum dolor sit amet.
+
+    #machines
+        h2 second
+
+    
                 
 
 
