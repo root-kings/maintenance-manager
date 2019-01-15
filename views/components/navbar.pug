@@ -1,9 +1,11 @@
 .navbar-fixed.hide-on-large-only
-    nav.green.darken-3
+    nav.green.darken-3.nav-extended
         .nav-wrapper
             a(data-target="slide-out" href="#").sidenav-trigger
                 i.material-icons menu
             a.brand-logo(href="/") Dashboard
+    
+        block navcontent
 
 ul#slide-out.sidenav.sidenav-fixed
     li
