@@ -1,13 +1,11 @@
-.navbar-fixed.hide-on-large-only
-    nav.green.darken-3.nav-extended
+.navbar-fixed
+    nav.green.darken-3
         .nav-wrapper
             a(data-target="slide-out" href="#").sidenav-trigger
                 i.material-icons menu
             a.brand-logo(href="/") Dashboard
-    
-        block navcontent
 
-ul#slide-out.sidenav.sidenav-fixed
+ul#slide-out.sidenav
     li
         .user-view
             .background
@@ -17,11 +15,17 @@ ul#slide-out.sidenav.sidenav-fixed
             a(href="#email")
                 span.white-text.email tusharpandey@gmail.com
     li
-      a(href="#!") Home
-        i.material-icons.left home
+        a(href="/") Home
+            i.material-icons.left home
     li
-      a(href="#!") Settings
-        i.material-icons.left settings
+        a(href="#!") Settings
+            i.material-icons.left settings
+
+    li.tab
+        a(href="/machines") Machines
+            i.material-icons.left settings
+
+
     li
       a(href="#!") About
         i.material-icons.left info

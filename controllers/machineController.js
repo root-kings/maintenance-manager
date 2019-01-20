@@ -1,4 +1,5 @@
 var Machine = require('../models/machine')
+var Checkup = require('../models/checkup')
 
 // API -----
 exports.machine_detail_get = (req, res) => {
@@ -66,3 +67,16 @@ exports.machine_create_post = (req, res) => {
 
 
 // Application -----
+
+exports.machine_detail_view_get = (req, res) => {
+    Machine.findById(req.params.id).populate('checkup.history').exec((err, result) => {
+        if (err) return res.status(500).send(err)
+
+        if (result) return res.render('machine', {
+            machine: result
+        })
+
+        return res.send(false)
+
+    })
+}

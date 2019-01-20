@@ -1,0 +1,76 @@
+extends components/layout.pug
+
+block styles
+
+block content
+
+    #recordmodal.modal.modal-fixed-footer.bottom-sheet
+        .modal-content
+            
+            .row
+                h4.col.s12 Create record
+                form#createrecordform.col.s12(action='/machine/create', method='POST')
+                    .row
+                        .input-field.col.s12
+                            input#date.datepicker(type="date", name="date")
+                            label(for="date") Date
+
+                    .row
+                        .input-field.col.s12
+                            input#incharge.validate(type="text", name="incharge")
+                            label(for="incharge") Incharge
+              
+        .modal-footer
+            a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
+            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createrecordform').submit();") Submit
+    
+      
+
+    .container#machine
+        .row
+            .col.s12.m6
+                .card.rounded
+                    .card-content
+                        p.light # {{machine._id}}
+                        span.card-title.grey-text.text-darken-4 {{machine.name}}
+                            a(href="#").green-text
+                                i.material-icons.right edit
+
+                        .row
+                            p.col.s12 Incharge: {{machine.incharge}}
+
+                        .row
+                            p.col.s6.strong Next: {{machine.checkup.next}}
+                            p.col.s6 Last: {{machine.checkup.last}}
+                        
+                        .row
+                            p.col.s6 Frequency: {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
+                            p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
+                        
+                        
+                    .card-action
+                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(href="#recordmodal") Record
+                            i.material-icons.left add
+                        a.btn.btn-flat.btn-bordered.curvy(@click="markdone(machine._id)") Done
+                            i.material-icons.left done
+                        a.btn.btn-flat.btn-bordered.curvy(@click="marklater(machine._id)") Later
+                            i.material-icons.left access_time
+                        a.btn.btn-flat.btn-bordered.curvy(v-bind:href="'/machine/'+machine._id") View
+                            i.material-icons.left visibility
+
+            .col.s12.m6
+                ul.collection
+                    li.collection-item(v-for="record in machine.checkup.history")
+                        span.title {{record.date}}
+                        p {{record.incharge}}
+                        a.secondary-content(href="#!")
+                            i.material-icons grade
+
+                    
+
+             
+
+block scripts
+    script(src="/js/init/machine.js")
+   
+    

@@ -1,16 +1,26 @@
-$(document).ready(function () {
-    var tabinstances = M.Tabs.init(document.getElementsByClassName('tabs'));
-    // var machinemodalinstance = M.Modal.init(document.getElementById('machine-modal'));
+var upcomingview;
 
+$(document).ready(function () {
     $('.modal').modal();
 
-    $.get('/machines/list', function(listmachines){
-        var machineview = new Vue({
-            el: '#machines',
+    $.get('/machines/list', function (listmachines) {
+        
+        upcomingview = new Vue({
+            el: '#upcoming',
             data: {
                 machines: listmachines
             }
         })
+
     })
-    
+
 });
+
+function mark(id) {
+    console.log(id);
+}
+
+function viewMachine(id) {
+    localStorage.setItem('machineId', id);
+    window.location.href = '/machine';
+}

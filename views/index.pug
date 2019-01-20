@@ -2,143 +2,32 @@ extends components/layout.pug
 
 block styles
 
-block navcontent
-    .nav-content
-        ul.tabs.tabs-transparent
-            li.tab
-                a(href="#upcoming") Upcoming
-            li.tab
-                a(href="#machines") Machines
-
 block content
     .green.darken-2.hide-on-med-and-down
         .row
             .col.s12
                 h4.header.light.white-text Dashboard
-        .row
-            ul.tabs.tabs-transparent
-                li.tab.col.s6.l3
-                    a(href="#upcoming") Upcoming
-                li.tab.col.s6.l3
-                    a(href="#machines") Machines
-    
+        
             //- .divider.green.darken-5
 
     #upcoming
         .row
-            .col.s12.m6
+            .col.s12.m6(v-for="machine in machines")
                 .card.rounded
                     .card-content
-                        span.card-title.grey-text.text-darken-4 Machine name
+                        span.card-title.grey-text.text-darken-4 {{machine.name}}
                             a(href="#").orange-text
                                 i.material-icons.right star
-                        - var date = new Date()
-                        p #{date} 
+                        
+                        p {{machine.checkup.next}} 
                     .card-action
-                        a.btn.btn-flat.btn-bordered.curvy(href="#") Done
+                        a.btn.btn-flat.btn-bordered.curvy(@click="markdone(machine._id)") Done
                             i.material-icons.left done
-                        a.btn.btn-flat.btn-bordered.curvy(href="#") Later
+                        a.btn.btn-flat.btn-bordered.curvy(@click="marklater(machine._id)") Later
                             i.material-icons.left access_time
-                        a.btn.btn-flat.btn-bordered.curvy(href="#") View
+                        a.btn.btn-flat.btn-bordered.curvy(@click="viewMachine(machine._id)") View
                             i.material-icons.left visibility
 
-                        
-    // Modal Structure
-    #machinemodal.modal.modal-fixed-footer
-        .modal-content
-            
-            .row
-                h4.col.s12 Create machine
-                form#createmachineform.col.s12(action='/machine/create', method='POST')
-                    .row
-                        .input-field.col.s12
-                            input#name.validate(type="text", name="name")
-                            label(for="name") Name
-                    .row
-                        .input-field.col.s6
-                            input#interval.validate(type="text", name="interval")
-                            label(for="interval") Checkup Interval
-                        .input-field.col.s6
-                            select(name="unit")
-                                option(value="days") Days
-                                option(value="months") Months
-                                option(value="years") Years    
-                            //- label Unit
-
-                    .row
-                        .input-field.col.s4
-                            input#sector.validate(type="text", name="sector")
-                            label(for="sector") Sector
-                        .input-field.col.s4
-                            input#number.validate(type="number", name="number")
-                            label(for="number") Number
-                        .input-field.col.s4
-                            input#shop.validate(type="text", name="shop")
-                            label(for="shop") Shop
-
-                    .row
-                        .input-field.col.s12
-                            input#incharge.validate(type="text", name="incharge")
-                            label(for="incharge") Incharge
-                    
-
-        .modal-footer
-            a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createmachineform').submit();") Submit
-    
-
-    #machines
-        .fixed-action-btn
-            // Modal Trigger
-            a.waves-effect.waves-light.btn-floating.btn-large.red.modal-trigger(href="#machinemodal")
-                i.material-icons.large add
-        
-
-
-
-        //- .row
-            nav.transparent.z-depth-0
-                .nav-wrapper
-                    .col.s12
-                        a.breadcrumb.green-text(href="#!") Sector 1
-                        a.breadcrumb.green-text(href="#!") Subsection 2
-                        a.breadcrumb.green-text(href="#!") Row 3
-        //- #sectors
-            a(href="#")
-                .card-panel.rounded Sector 1        
-            a(href="#")
-                .card-panel.rounded Sector 1        
-            a(href="#")
-                .card-panel.rounded Sector 1
-            a(href="#")
-                .card-panel.rounded Sector 1        
-            a(href="#")
-                .card-panel.rounded Sector 1        
-            a(href="#")
-                .card-panel.rounded Sector 1
-            a(href="#")
-                .card-panel.rounded Sector 1        
-            a(href="#")
-                .card-panel.rounded Sector 1        
-            a(href="#")
-                .card-panel.rounded Sector 1
-            a(href="#")
-                .card-panel.rounded Sector 1        
-            a(href="#")
-                .card-panel.rounded Sector 1        
-            a(href="#")
-                .card-panel.rounded Sector 1
-
-        .collection 
-            a.collection-item(v-for="machine in machines" v-bind:href="'/machine/'+machine._id") #{"{{machine.name}}"}
-                i.material-icons.right chevron_right
-            
-
-
-
-    
-                
-
-
+     
 block scripts
     script(src="/js/init/homepage.js")

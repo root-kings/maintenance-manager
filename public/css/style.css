@@ -7,7 +7,7 @@ main {
     flex: 1 0 auto;
 }
 
-header,
+/* header,
 main,
 footer {
     padding-left: 300px;
@@ -23,7 +23,7 @@ footer {
     main {
         margin-top: 48px;
     }
-}
+} */
 
 .brand-logo {
     margin-left: 15px;
