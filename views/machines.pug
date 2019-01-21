@@ -64,9 +64,9 @@ block content
 
 
         .collection 
-            a.collection-item(v-for="machine in machines" v-bind:href="'/machine/'+machine._id") {{machine.name}}
+            a.collection-item(v-for="machine in machines" @click="viewMachine(machine._id)") {{machine.name}}
                 i.material-icons.right chevron_right
 
 
 block scripts
-    script(src="/js/init/homepage.js")
+    script(src="/js/init/machines.js")
