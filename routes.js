@@ -28,7 +28,13 @@ router.get('/machines/list', machineController.machines_list_get)
 
 router.get('/api/machine/:id', machineController.machine_detail_get)
 
+router.get('/api/machines/deleteall', machineController.machines_delete_all_get)
+
+
 router.post('/machine/create', machineController.machine_create_post)
+
+router.post('/api/machine/record/add', machineController.machine_record_add_post)
+
 
 //router.get('/machine/:id', machineController.machine_detail_view_get)
 
