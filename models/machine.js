@@ -21,9 +21,7 @@ var MachineSchema = new Schema({
         type: String
     },
     checkup: {
-        last: {
-            type: Date
-        },
+
         interval: {
             value: {
                 type: Number
@@ -33,8 +31,8 @@ var MachineSchema = new Schema({
             }
         },
         history: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Checkup'
+            type: Date,
+            
         }]
     }
 }, {
@@ -45,6 +43,12 @@ var MachineSchema = new Schema({
         virtuals: true
     }
 })
+
+MachineSchema
+    .virtual('checkup.last')
+    .get(function () {
+        return moment(this.checkup.history.sort()[0]).format("DD MMM YYYY");
+    });
 
 MachineSchema
     .virtual('checkup.next')
