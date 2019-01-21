@@ -1,9 +1,12 @@
 var Machine = require('../models/machine')
-var Checkup = require('../models/checkup')
+// var Checkup = require('../models/checkup')
+
+var moment = require('moment')
+
 
 // API -----
 exports.machine_detail_get = (req, res) => {
-    Machine.findById(req.params.id).populate('checkup.history').exec((err, result) => {
+    Machine.findById(req.params.id).exec((err, result) => {
         if (err) return res.status(500).send(err)
 
         if (result) return res.send(result)
@@ -25,7 +28,7 @@ exports.machines_get = (req, res) => {
 }
 
 exports.machines_list_get = (req, res) => {
-    Machine.find({}).select('_id name').exec((err, result) => {
+    Machine.find({}).exec((err, result) => {
         if (err) return res.status(500).send(err)
 
         if (result) return res.send(result)
@@ -52,6 +55,7 @@ exports.machine_create_post = (req, res) => {
             }
         }
     })
+
     newmachine.save(err => {
         if (err) return res.status(500).send(err)
 
@@ -63,13 +67,43 @@ exports.machine_create_post = (req, res) => {
 
 }
 
+exports.machines_delete_all_get = (req, res) => {
+    Machine.remove({}, (err, result) => {
+        if (err) return res.status(500).send(err)
+
+        if (result) return res.send(result)
+
+        return res.send(false)
+
+    })
+}
 
 
+exports.machine_record_add_post = (req, res) => {
+    Machine.findOneAndUpdate({
+        _id: req.body.id
+    }, {
+        $push: {
+            "checkup.history": new moment(req.body.date)
+        }
+
+    }, {
+        safe: true,
+        upsert: true
+    }).exec((err, result) => {
+        if (err) return res.status(500).send(err)
+
+        if (result) return res.send(result)
+
+        return res.send(false)
+
+    })
+}
 
 // Application -----
 
 exports.machine_detail_view_get = (req, res) => {
-    Machine.findById(req.params.id).populate('checkup.history').exec((err, result) => {
+    Machine.findById(req.params.id).exec((err, result) => {
         if (err) return res.status(500).send(err)
 
         if (result) return res.render('machine', {
