@@ -59,6 +59,7 @@ block content
                         
 
             .col.s12.m6
+                h3.light Record
                 ul.collection
                     li.collection-item(v-for="record in machine.checkup.history")
                         span.title {{moment(record).format('DD MMM YYYY')}}
