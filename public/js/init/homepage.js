@@ -1,7 +1,6 @@
 var upcomingview;
 
 $(document).ready(function () {
-    $('.modal').modal();
 
     $.get('/machines/list', function (listmachines) {
         
@@ -15,10 +14,6 @@ $(document).ready(function () {
     })
 
 });
-
-function mark(id) {
-    console.log(id);
-}
 
 function viewMachine(id) {
     localStorage.setItem('machineId', id);
