@@ -33,8 +33,7 @@ block content
                     .card-content
                         p.light # {{machine._id}}
                         span.card-title.grey-text.text-darken-4 {{machine.name}}
-                            a(href="#").green-text
-                                i.material-icons.right edit
+                            i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
 
                         .row
                             p.col.s12 Incharge: {{machine.incharge}}
