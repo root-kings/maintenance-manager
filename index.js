@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const logger = require('morgan')
 
 const PORT = process.env.PORT || 3000
 const DBPORT = process.env.MONGODB_URI || 'mongodb://heroku_glpd1cfw:p4g2fbe0l74homdtpals7rg0cm@ds157574.mlab.com:57574/heroku_glpd1cfw'
@@ -13,6 +14,7 @@ mongoose.Promise = global.Promise
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
+app.use(logger('dev'))
 app.use(cors())
 
 app.use(bodyParser.urlencoded({
