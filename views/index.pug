@@ -2,6 +2,9 @@ extends components/layout.pug
 
 block styles
 
+block navtitle
+    a.green-text.brand-logo(href="/") Upcoming
+
 block content
     //- .green.darken-2.hide-on-med-and-down
         .row
@@ -29,10 +32,11 @@ block content
                             i.material-icons.left visibility
 
                 a(href="#" @click="viewMachine(machine._id)")
-                    .card.rounded
+                    .card.rounded(v-bind:class="{'red darken-1 white-text': machine.soon }")
                         .card-content
                             span.card-title.text-darken-4 {{machine.name}}                            
-                            p {{machine.checkup.next}} 
+                            p Next: {{machine.checkup.next}} 
+                            p Days left: {{machine.soondays}} 
                
 
      
