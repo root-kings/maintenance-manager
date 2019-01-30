@@ -13,7 +13,7 @@ block content
     #upcoming.container
         .row
             .col.s12.m6(v-for="machine in machines")
-                .card.rounded
+                //- .card.rounded
                     .card-content
                         span.card-title.grey-text.text-darken-4 {{machine.name}}
                             a(href="#").orange-text
@@ -27,6 +27,13 @@ block content
                         //-     i.material-icons.left access_time
                         a.btn.btn-flat.btn-bordered.curvy(@click="viewMachine(machine._id)") View
                             i.material-icons.left visibility
+
+                a(href="#" @click="viewMachine(machine._id)")
+                    .card.rounded
+                        .card-content
+                            span.card-title.text-darken-4 {{machine.name}}                            
+                            p {{machine.checkup.next}} 
+               
 
      
 block scripts
