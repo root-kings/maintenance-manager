@@ -59,7 +59,7 @@ exports.machine_create_post = (req, res) => {
     newmachine.save(err => {
         if (err) return res.status(500).send(err)
 
-        return res.send(newmachine)
+        return res.redirect('/machines')
     })
 
     // console.log(req.body)
@@ -72,6 +72,17 @@ exports.machines_delete_all_get = (req, res) => {
         if (err) return res.status(500).send(err)
 
         if (result) return res.send(result)
+
+        return res.send(false)
+
+    })
+}
+
+exports.machine_delete_post = (req, res) => {
+    Machine.findByIdAndRemove(req.params.id, (err, result) => {
+        if (err) return res.status(500).send(err)
+
+        if (result) return res.send(true)
 
         return res.send(false)
 

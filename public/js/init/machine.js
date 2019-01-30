@@ -44,3 +44,11 @@ function addRecord(id) {
     })
 
 }
+
+function machineDelete(id) {
+    if (confirm("Delete this machine?")) {
+        $.post('/api/machine/' + id + '/delete', function (result) {
+            window.location = '/machines';
+        });
+    }
+}
