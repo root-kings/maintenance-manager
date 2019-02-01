@@ -40,7 +40,7 @@ block content
 
 
         .collection
-            a.collection-item.avatar(href="#" v-for="machine in machines" @click="viewMachine(machine._id)" v-bind:class="{'red darken-3 white-text': machine.soon }")
+            a.collection-item.avatar(href="#" v-for="machine in machines" @click="viewMachine(machine._id)" v-bind:class="{'firewatch white-text': machine.soon }")
             
                 .row
                     span.col.s12.title.text-darken-4 {{machine.name}}                            
