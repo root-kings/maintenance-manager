@@ -56,3 +56,12 @@ a.breadcrumb::before {
     display: inline-block;
     margin-right: 10px;
 }
+
+#upcoming .collection .row {
+    margin: 0;
+}
+
+#upcoming .collection .collection-item.avatar {
+    min-height: 50px;
+    padding-left: 20px; 
+}

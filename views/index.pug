@@ -13,8 +13,8 @@ block content
         
             //- .divider.green.darken-5
 
-    #upcoming.container
-        .row
+    #upcoming
+        //- .row
             .col.s12.m6(v-for="machine in machines")
                 //- .card.rounded
                     .card-content
@@ -37,7 +37,17 @@ block content
                             span.card-title.text-darken-4 {{machine.name}}                            
                             p Next: {{machine.checkup.next}} 
                             p Days left: {{machine.soondays}} 
-               
+
+
+        .collection
+            a.collection-item.avatar(href="#" v-for="machine in machines" @click="viewMachine(machine._id)" v-bind:class="{'red darken-3 white-text': machine.soon }")
+            
+                .row
+                    span.col.s12.title.text-darken-4 {{machine.name}}                            
+
+                    span.col.s6 Next: {{machine.checkup.next}} 
+                    span.col.s6 {{machine.soondays}} days left
+    
 
      
 block scripts
