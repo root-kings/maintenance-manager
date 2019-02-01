@@ -29,42 +29,47 @@ block content
     
       
 
-    .container#machine(v-once)
+    #machine(v-once)
+        
+            
+        .card.sharp
+            .card-content
+                .row
+                    p.col.s12.light # {{machine._id}}
+                    span.col.s12.card-title.grey-text.text-darken-4 {{machine.name}}
+                        i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
+
+                
+                    p.col.s12 Incharge: {{machine.incharge}}
+
+                .row
+                    p.col.s6.strong Next: {{machine.checkup.next}}
+                    p.col.s6 Last: {{machine.checkup.last}}
+                
+                .row
+                    p.col.s6 Frequency: {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
+                    p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
+                
+                
+            .card-action
+                
+                .input-field
+                    input#date.datepicker(type="text", name="date")
+                    label(for="date") Add record date (yyyy-mm-dd)
+                
+                a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(machine._id)") Add
+                    i.material-icons.left add
+                
         .row
-            .col.s12.m6
-                .card.rounded
-                    .card-content
-                        p.light # {{machine._id}}
-                        span.card-title.grey-text.text-darken-4 {{machine.name}}
-                            i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
-
-                        .row
-                            p.col.s12 Incharge: {{machine.incharge}}
-
-                        .row
-                            p.col.s6.strong Next: {{machine.checkup.next}}
-                            p.col.s6 Last: {{machine.checkup.last}}
-                        
-                        .row
-                            p.col.s6 Frequency: {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
-                            p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
-                        
-                        
-                    .card-action
-                        
-                        .input-field
-                            input#date.datepicker(type="text", name="date")
-                            label(for="date") Date (yyyy-mm-dd)
-                        
-                        a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(machine._id)") Add
-                            i.material-icons.left add
-                        
-
             .col.s12.m6
                 h3.light Record
                 ul.collection
                     li.collection-item(v-for="record in machine.checkup.history")
-                        span.title {{moment(record).format('DD MMM YYYY')}}
+                        span {{moment(record).format('DD MMM YYYY')}}
+                        a.secondary-content.red-text(@click="deleteRecord()")
+                            i.material-icons close
+                        
+
                         
 
                     
