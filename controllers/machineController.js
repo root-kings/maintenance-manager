@@ -59,7 +59,7 @@ exports.machine_create_post = (req, res) => {
     newmachine.save(err => {
         if (err) return res.status(500).send(err)
 
-        return res.redirect('/machines')
+        return res.redirect('/calibration')
     })
 
     // console.log(req.body)

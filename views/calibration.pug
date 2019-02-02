@@ -13,6 +13,57 @@ block content
         
             //- .divider.green.darken-5
 
+    #machinemodal.modal.modal-fixed-footer
+        .modal-content
+            
+            .row
+                h4.col.s12 Create machine
+                form#createmachineform.col.s12(action='/machine/create', method='POST')
+                    .row
+                        .input-field.col.s12
+                            input#name.validate(type="text", name="name")
+                            label(for="name") Name
+                    .row
+                        .input-field.col.s6
+                            input#interval.validate(type="text", name="interval")
+                            label(for="interval") Checkup Interval
+                        .input-field.col.s6
+                            select(name="unit")
+                                option(value="days") Days
+                                option(value="months") Months
+                                option(value="years") Years    
+                            //- label Unit
+
+                    .row
+                        .input-field.col.s4
+                            input#sector.validate(type="text", name="sector")
+                            label(for="sector") Sector
+                        .input-field.col.s4
+                            input#number.validate(type="number", name="number")
+                            label(for="number") Number
+                        .input-field.col.s4
+                            input#shop.validate(type="text", name="shop")
+                            label(for="shop") Shop
+
+                    .row
+                        .input-field.col.s12
+                            input#incharge.validate(type="text", name="incharge")
+                            label(for="incharge") Incharge
+                    
+
+        .modal-footer
+            a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
+            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createmachineform').submit();") Submit
+    
+
+
+
+    .fixed-action-btn
+        // Modal Trigger
+        a.waves-effect.waves-light.btn-floating.btn-large.red.modal-trigger(href="#machinemodal")
+            i.material-icons.large add
+    
+    
     #upcoming
         //- .row
             .col.s12.m6(v-for="machine in machines")
@@ -51,4 +102,4 @@ block content
 
      
 block scripts
-    script(src="/js/init/homepage.js")
+    script(src="/js/init/calibration.js")
