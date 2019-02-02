@@ -4,17 +4,24 @@ var router = require('express').Router()
 
 router.get('/', (req, res) => {
     // res.send('Hello world!')
-    res.render('index')
+    res.redirect('/calibration')
+    // res.render('index')
 })
 
-router.get('/machines', (req, res) => {
-    // res.send('Hello world!')
-    res.render('machines')
+router.get('/calibration', (req, res) => {
+    res.render('calibration')
 })
 
 router.get('/machine', (req, res) => {
-    // res.send('Hello world!')
     res.render('machine')
+})
+
+router.get('/spares', (req, res) => {
+    res.render('spares')
+})
+
+router.get('/about', (req, res) => {
+    res.render('about')
 })
 
 
