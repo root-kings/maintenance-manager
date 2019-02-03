@@ -28,6 +28,10 @@ router.get('/about', (req, res) => {
     res.render('about')
 })
 
+router.get('/login', (req, res) => {
+    res.render('login')
+})
+
 
 // Machine -----
 
