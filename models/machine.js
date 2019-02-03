@@ -59,7 +59,7 @@ MachineSchema
 MachineSchema
     .virtual('checkup.next')
     .get(function () {
-        return moment(this.checkup.last).add(this.checkup.interval.value, this.checkup.interval.unit).format("DD MMM YYYY");
+        return moment(this.checkup.last, "DD MMM YYYY").add(this.checkup.interval.value, this.checkup.interval.unit).format("DD MMM YYYY");
     });
 
 
