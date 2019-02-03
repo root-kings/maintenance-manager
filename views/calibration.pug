@@ -90,7 +90,7 @@ block content
                             p Days left: {{machine.soondays}} 
 
 
-        .collection
+        //- .collection
             a.collection-item.avatar(href="#" v-for="machine in machines" @click="viewMachine(machine._id)" v-bind:class="{'firewatch white-text': machine.soon }")
             
                 .row
@@ -98,7 +98,42 @@ block content
 
                     span.col.s6 Next: {{machine.checkup.next}} 
                     span.col.s6 {{machine.soondays}} days left
-    
+
+
+        ul.collapsible(v-once)
+            li(v-for="machine in machines")
+                .collapsible-header(v-bind:class="{'firewatch white-text': machine.soon }")
+                    p.full-width.no-margin {{machine.name}} 
+                        span.right Next: {{machine.checkup.next}} | {{machine.soondays}} days left
+                .collapsible-body.card.no-padding.z-depth-0
+                    .card-content
+                        .row
+                            p.col.s12.light # {{machine._id}}
+                            span.col.s12.card-title.grey-text.text-darken-4 {{machine.name}}
+                                i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
+
+                        
+                            p.col.s12 Incharge: {{machine.incharge}}
+
+                        .row
+                            p.col.s6.strong Next: {{machine.checkup.next}}
+                            p.col.s6 Last: {{machine.checkup.last}}
+                        
+                        .row
+                            p.col.s6 Frequency: {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
+                            p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
+                    .card-action
+                        .input-field
+                            input.datepicker(type="text", name="date", v-bind:id="'date'+machine._id")
+                            label(v-bind:for="'date'+machine._id") Add record date (yyyy-mm-dd)
+                        
+                        a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(machine._id)") Add
+                            i.material-icons.left add
+
+                        a.btn.btn-flat.btn-bordered.curvy(@click="viewMachine(machine._id)") View
+                            i.material-icons.left visibility
+
+        
 
      
 block scripts
