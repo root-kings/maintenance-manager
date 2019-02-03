@@ -55,10 +55,10 @@ exports.spare_create_post = (req, res) => {
         // }
     })
 
-    newSpare.save(err => {
+    newspare.save(err => {
         if (err) return res.status(500).send(err)
 
-        return res.redirect('/calibration')
+        return res.redirect('/spares')
     })
 
     // console.log(req.body)
