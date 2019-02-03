@@ -47,6 +47,22 @@ router.post('/api/machine/:id/delete', machineController.machine_delete_post)
 
 //router.get('/machine/:id', machineController.machine_detail_view_get)
 
+// Spare -----
+
+var spareController = require('./controllers/spareController')
+
+router.get('/api/spares', spareController.spares_get)
+
+router.get('/spares/list', spareController.spares_list_get)
+
+router.get('/api/spare/:id', spareController.spare_detail_get)
+
+router.get('/api/spares/deleteall', spareController.spares_delete_all_get)
+
+
+router.post('/spare/create', spareController.spare_create_post)
+
+router.post('/api/spare/:id/delete', spareController.spare_delete_post)
 
 
 
