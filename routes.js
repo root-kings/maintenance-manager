@@ -20,6 +20,10 @@ router.get('/spares', (req, res) => {
     res.render('spares')
 })
 
+router.get('/spare', (req, res) => {
+    res.render('spare')
+})
+
 router.get('/about', (req, res) => {
     res.render('about')
 })
