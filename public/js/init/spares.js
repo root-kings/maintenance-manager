@@ -1,17 +1,23 @@
-var machineview;
+var spareview;
 
 $(document).ready(function () {
     $('.modal').modal();
 
-    $.get('/machines/list', function (listmachines) {
+    $.get('/spares/list', function (listspares) {
         
-        machineview = new Vue({
-            el: '#machines',
+        spareview = new Vue({
+            el: '#spares',
             data: {
-                machines: listmachines
+                spares: listspares
             }
         })
 
     })
 
 });
+
+
+function viewSpare(id) {
+    localStorage.setItem('spareId', id);
+    window.location.href = '/spare';
+}
