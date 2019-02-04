@@ -15,22 +15,23 @@ Start development server with `yarn debug`.
 ## To Do
 
 * [ ] Models
-  * [ ] Checkup
-  * [ ] Sparepart
+  * [x] Sparepart
   * [ ] User
-  * [-] Machine
+  * [x] Machine
 
 * [ ] Pages
   * [ ] Login
   * [ ] Register
   * [ ] Machine Calibration
     * [x] List
-    * [-] Details and Edit
-    * [-] Create
+    * [x] Details
+    * [ ] Edit
+    * [x] Create
   * [ ] Spares
-    * [ ] List
-    * [ ] Details and Manange Stages
-    * [ ] Create
+    * [x] List
+    * [ ] Details
+    * [ ] Manange Stages
+    * [x] Create
   * [ ] Homepage
   * [ ] About
   * [ ] User Profile
@@ -38,5 +39,7 @@ Start development server with `yarn debug`.
 * [ ] Tasks
   * [ ] Permission management
   * [ ] Send Email
-  * [ ] Optimize design
+  * [ ] waiting overlay
+  * [ ] '35 days' => '1 month 5 days'
+  * [ ] email schedule
   * [ ] Sent email notification
