@@ -167,6 +167,9 @@ block content
                             i.material-icons.left visibility
                         a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+machine._id") View
                             i.material-icons.left visibility
+                        
+                        a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='machineDelete(machine._id)')
+                            i.material-icons delete
 
                 .modal.white(v-bind:id="'record'+machine._id")
                     ul.collection
