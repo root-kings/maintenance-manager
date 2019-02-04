@@ -16,6 +16,40 @@ block content
                         .input-field.col.s12
                             input#name.validate(type="text", name="name")
                             label(for="name") Name
+                        
+                        .input-field.col.s6
+                            input#incharge.validate(type="text", name="incharge")
+                            label(for="incharge") Incharge
+
+                        .input-field.col.s6
+                            input#number.validate(type="tel", name="usrtel")
+                            label(for="usrtel") Contact no.  
+
+                    .row
+                        .input-field.col.s12
+                            input.datepicker(type="text", name="date")
+                            label(for="date") Record date (yyyy-mm-dd)  
+                    .row
+                        .input-field.col.s12
+                            input.datepicker(type="text", name="date")
+                            label(for="date") Record date (yyyy-mm-dd) 
+                    .row
+                        .col.s2
+                            h6.span.grey-text Status
+                    .row
+                        .col.s4        
+                            a.waves-effect.waves-light.btn-small Button
+                        .col.s8    
+                            a.waves-effect.waves-light.btn-small Button
+                    .row    
+                        .col.s4    
+                            a.waves-effect.waves-light.btn-small Button
+                        .col.s8    
+                            a.waves-effect.waves-light.btn-small Button       
+
+                            
+
+                        
                     //- .row
                     //-     .input-field.col.s6
                     //-         input#interval.validate(type="text", name="interval")
@@ -38,11 +72,7 @@ block content
                     //-         input#shop.validate(type="text", name="shop")
                     //-         label(for="shop") Shop
 
-                    //- .row
-                    //-     .input-field.col.s12
-                    //-         input#incharge.validate(type="text", name="incharge")
-                    //-         label(for="incharge") Incharge
-                    
+                    //- 
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
