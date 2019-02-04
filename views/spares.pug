@@ -10,69 +10,48 @@ block content
         .modal-content
             
             .row
-                h4.col.s12 Create spare
+                h4.col.s12 Create case
                 form#createspareform.col.s12(action='/spare/create', method='POST')
                     .row
                         .input-field.col.s12
-                            input#name.validate(type="text", name="name")
-                            label(for="name") Name
-                        
-                        .input-field.col.s6
+                            input#case.validate(type="text", name="case")
+                            label(for="case") Case
+                    
+                        .input-field.col.s12
                             input#incharge.validate(type="text", name="incharge")
                             label(for="incharge") Incharge
-
-                        .input-field.col.s6
-                            input#number.validate(type="tel", name="usrtel")
-                            label(for="usrtel") Contact no.  
-
-                    .row
-                        .input-field.col.s12
-                            input.datepicker(type="text", name="date")
-                            label(for="date") Record date (yyyy-mm-dd)  
-                    .row
-                        .input-field.col.s12
-                            input.datepicker(type="text", name="date")
-                            label(for="date") Record date (yyyy-mm-dd) 
-                    .row
-                        .col.s2
-                            h6.span.grey-text Status
-                    .row
-                        .col.s4        
-                            a.waves-effect.waves-light.btn-small Button
-                        .col.s8    
-                            a.waves-effect.waves-light.btn-small Button
-                    .row    
-                        .col.s4    
-                            a.waves-effect.waves-light.btn-small Button
-                        .col.s8    
-                            a.waves-effect.waves-light.btn-small Button       
-
-                            
-
                         
-                    //- .row
-                    //-     .input-field.col.s6
-                    //-         input#interval.validate(type="text", name="interval")
-                    //-         label(for="interval") Checkup Interval
-                    //-     .input-field.col.s6
-                    //-         select(name="unit")
-                    //-             option(value="days") Days
-                    //-             option(value="months") Months
-                    //-             option(value="years") Years    
-                    //-         //- label Unit
+                        .input-field.col.s12
+                            input#email.validate(type="email", name="email")
+                            label(for="email") Email
 
+                        .input-field.col.s12
+                            input#phone.validate(type="tel", name="phone")
+                            label(for="phone") Phone  
+                    
+                    
+                        //- .input-field.col.s6
+                        //-     input.datepicker#requisition(type="text", name="requisition")
+                        //-     label(for="requisition") Requisition date (yyyy-mm-dd)  
+                    
+                        //- .input-field.col.s6
+                        //-     input#requisitiontimeout(type="number", name="requisitiontimeout")
+                        //-     label(for="requisitiontimeout") timeout (days)
                     //- .row
-                    //-     .input-field.col.s4
-                    //-         input#sector.validate(type="text", name="sector")
-                    //-         label(for="sector") Sector
-                    //-     .input-field.col.s4
-                    //-         input#number.validate(type="number", name="number")
-                    //-         label(for="number") Number
-                    //-     .input-field.col.s4
-                    //-         input#shop.validate(type="text", name="shop")
-                    //-         label(for="shop") Shop
+                    //-     .col.s2
+                    //-         h6.span.grey-text Status
+                    //- .row
+                    //-     .col.s4        
+                    //-         a.waves-effect.waves-light.btn-small Button
+                    //-     .col.s8    
+                    //-         a.waves-effect.waves-light.btn-small Button
+                    //- .row    
+                    //-     .col.s4    
+                    //-         a.waves-effect.waves-light.btn-small Button
+                    //-     .col.s8    
+                    //-         a.waves-effect.waves-light.btn-small Button       
 
-                    //- 
+                
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
@@ -91,12 +70,75 @@ block content
     
 
 
-    #spares
+    #spares(v-once)
         
 
-        .collection 
-            a.collection-item(v-for="spare in spares" @click="viewSpare(spare._id)") {{spare.name}}
+        //- .collection 
+            a.collection-item(v-for="spare in spares" @click="viewSpare(spare._id)") {{spare.case}}
                 i.material-icons.right chevron_right
+
+
+        ul.collapsible
+            li(v-for="spare in spares")
+                .collapsible-header
+                    p.full-width.no-margin {{spare.case}} 
+                        span.right {{spare.currentstage}}
+                .collapsible-body.card.no-padding.z-depth-0
+                    .card-content
+                        .row
+                            p.col.s12.light # {{spare._id}}
+                            span.col.s12.card-title.grey-text.text-darken-4 {{spare.case}}
+                                //- i.material-icons.right.red-text(@click='spareDelete(spare._id)') delete
+
+                            p.col.s12.light {{spare.currentstage}}
+
+                        .row
+                            h6.col.s12.light Incharge
+                            p.col.s12 {{spare.incharge.name}}
+                                br
+                                | {{spare.incharge.email}}
+                                br
+                                | {{spare.incharge.phone}}
+
+                        //- .row
+                            p.col.s4.strong Next 
+                                br
+                                | {{spare.checkup.next}}
+                            p.col.s4 Last
+                                br
+                                | {{spare.checkup.last}}
+                            p.col.s4 Frequency
+                                br
+                                | {{spare.checkup.interval.value}} {{spare.checkup.interval.unit}}
+                            //- p.col.s6 {{spare.location.shop}} - {{spare.location.sector}}
+                        
+                        
+                                
+                    
+                    
+                    
+                    
+                    
+                    //- .card-action
+                        //- .input-field
+                            input(type="text", name="remark", v-bind:id="'remark'+spare._id")
+                            label(v-bind:for="'remark'+spare._id") Remark 
+                        
+                        .input-field
+                            input.datepicker(type="text", name="date", v-bind:id="'date'+spare._id")
+                            label(v-bind:for="'date'+spare._id") Add record date (yyyy-mm-dd)
+                        
+                        a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(spare._id)") Add
+                            i.material-icons.left add
+
+                        //- a.btn.btn-flat.btn-bordered.curvy(@click="viewspare(spare._id)") View
+                            i.material-icons.left visibility
+                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+spare._id") View
+                            i.material-icons.left visibility
+                        
+                        a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='spareDelete(spare._id)')
+                            i.material-icons delete
+
 
 
 block scripts

@@ -39,20 +39,13 @@ exports.spares_list_get = (req, res) => {
 
 exports.spare_create_post = (req, res) => {
     let newspare = new Spare({
-        name: req.body.name,
-        // location: {
-        //     sector: req.body.sector,
-        //     number: req.body.number,
-        //     shop: req.body.shop
-        // },
-        // incharge: req.body.incharge,
-        // checkup: {
-
-        //     interval: {
-        //         value: req.body.interval,
-        //         unit: req.body.unit
-        //     }
-        // }
+        case: req.body.case,
+        incharge: {
+            name: req.body.incharge,
+            phone: req.body.phone,
+            email: req.body.email,
+        }
+        
     })
 
     newspare.save(err => {
