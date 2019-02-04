@@ -33,8 +33,11 @@ block content
                                 option(value="months") Months
                                 option(value="years") Years    
                             //- label Unit
-
                     .row
+                        .input-field.col.s12
+                            input#testing.validate(type="text", name="testing")
+                            label(for="testing") What to test
+                    //- .row
                         .input-field.col.s4
                             input#sector.validate(type="text", name="sector")
                             label(for="sector") Sector
@@ -47,8 +50,14 @@ block content
 
                     .row
                         .input-field.col.s12
+                            input#remark(type="text", name="remark")
+                            label(for="remark") Remarks
+                    .row
+                        .input-field.col.s12
                             input#incharge.validate(type="text", name="incharge")
                             label(for="incharge") Incharge
+                    
+                    
                     
 
         .modal-footer
@@ -116,13 +125,37 @@ block content
                             p.col.s12 Incharge: {{machine.incharge}}
 
                         .row
-                            p.col.s6.strong Next: {{machine.checkup.next}}
-                            p.col.s6 Last: {{machine.checkup.last}}
+                            p.col.s4.strong Next 
+                                br
+                                | {{machine.checkup.next}}
+                            p.col.s4 Last
+                                br
+                                | {{machine.checkup.last}}
+                            p.col.s4 Frequency
+                                br
+                                | {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
+                            //- p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
                         
                         .row
-                            p.col.s6 Frequency: {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
-                            p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
+                            p.col.s12 What to test
+                                br
+                                | {{machine.testing}}
+
+                        .row
+                            p.col.s4 Remarks
+                                br
+                                | {{machine.remark}}
+                                
+                    
+                    
+                    
+                    
+                    
                     .card-action
+                        //- .input-field
+                            input(type="text", name="remark", v-bind:id="'remark'+machine._id")
+                            label(v-bind:for="'remark'+machine._id") Remark 
+                        
                         .input-field
                             input.datepicker(type="text", name="date", v-bind:id="'date'+machine._id")
                             label(v-bind:for="'date'+machine._id") Add record date (yyyy-mm-dd)

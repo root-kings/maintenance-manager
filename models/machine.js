@@ -6,16 +6,22 @@ var MachineSchema = new Schema({
     name: {
         type: String
     },
-    location: {
-        sector: {
-            type: String
-        },
-        number: {
-            type: Number
-        },
-        shop: {
-            type: String
-        }
+    // location: {
+    //     sector: {
+    //         type: String
+    //     },
+    //     number: {
+    //         type: Number
+    //     },
+    //     shop: {
+    //         type: String
+    //     }
+    // },
+    testing: {
+        type: String
+    },
+    remark: {
+        type: String
     },
     incharge: {
         type: String

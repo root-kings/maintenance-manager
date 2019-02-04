@@ -41,12 +41,14 @@ exports.machines_list_get = (req, res) => {
 exports.machine_create_post = (req, res) => {
     let newmachine = new Machine({
         name: req.body.name,
-        location: {
-            sector: req.body.sector,
-            number: req.body.number,
-            shop: req.body.shop
-        },
+        // location: {
+        //     sector: req.body.sector,
+        //     number: req.body.number,
+        //     shop: req.body.shop
+        // },
         incharge: req.body.incharge,
+        testing: req.body.testing,
+        remark: req.body.remark,
         checkup: {
 
             interval: {
@@ -94,6 +96,7 @@ exports.machine_record_add_post = (req, res) => {
     Machine.findOneAndUpdate({
         _id: req.body.id
     }, {
+        //remark: req.body.remark,
         $push: {
             "checkup.history": new moment(req.body.date)
         }

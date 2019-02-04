@@ -30,8 +30,9 @@ $(document).ready(function () {
                     setDefaultDate: true,
                     format: "yyyy-mm-dd"
                 });
-
+                M.updateTextFields();
             }
+            
         })
 
     })
@@ -46,7 +47,8 @@ function viewMachine(id) {
 function addRecord(id) {
     var record = {
         id: id,
-        date: $("#date" + id).val()
+        date: $("#date" + id).val(),
+        //remark: $("#remark" + id).val()
     }
 
     console.log(record);
