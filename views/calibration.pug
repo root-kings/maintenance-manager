@@ -110,7 +110,7 @@ block content
                         .row
                             p.col.s12.light # {{machine._id}}
                             span.col.s12.card-title.grey-text.text-darken-4 {{machine.name}}
-                                i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
+                                //- i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
 
                         
                             p.col.s12 Incharge: {{machine.incharge}}
@@ -130,11 +130,19 @@ block content
                         a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(machine._id)") Add
                             i.material-icons.left add
 
-                        a.btn.btn-flat.btn-bordered.curvy(@click="viewMachine(machine._id)") View
+                        //- a.btn.btn-flat.btn-bordered.curvy(@click="viewMachine(machine._id)") View
+                            i.material-icons.left visibility
+                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+machine._id") View
                             i.material-icons.left visibility
 
-        
+                .modal.white(v-bind:id="'record'+machine._id")
+                    ul.collection
+                        li.collection-header
+                            h5.light.center Past calibration record
+                        li.collection-item(v-for="record in machine.checkup.history")
+                            span {{moment(record).format('DD MMM YYYY')}}
+                            a.secondary-content.red-text(@click="removeRecord(machine._id, record)")
+                                i.material-icons close
 
-     
 block scripts
     script(src="/js/init/calibration.js")

@@ -24,7 +24,7 @@ $(document).ready(function () {
                 M.Collapsible.init(document.querySelectorAll('.collapsible'), {
                     accordion: false
                 });
-
+                M.Modal.init(document.querySelectorAll('.modal'));
                 M.Datepicker.init(document.querySelectorAll('.datepicker'), {
                     defaultDate: new Date(),
                     setDefaultDate: true,
@@ -52,6 +52,22 @@ function addRecord(id) {
     console.log(record);
 
     $.post('/api/machine/record/add', record, function (result) {
+        if (result) {
+            window.location.reload();
+        }
+    })
+
+}
+
+function removeRecord(id, val) {
+    var record = {
+        id: id,
+        date: val
+    }
+
+    console.log(record);
+
+    $.post('/api/machine/record/remove', record, function (result) {
         if (result) {
             window.location.reload();
         }
