@@ -66,7 +66,7 @@ block content
                 ul.collection
                     li.collection-item(v-for="record in machine.checkup.history")
                         span {{moment(record).format('DD MMM YYYY')}}
-                        a.secondary-content.red-text(@click="deleteRecord()")
+                        a.secondary-content.red-text(@click="removeRecord(machine._id, record)")
                             i.material-icons close
                         
 

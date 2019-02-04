@@ -46,6 +46,8 @@ router.post('/machine/create', machineController.machine_create_post)
 
 router.post('/api/machine/record/add', machineController.machine_record_add_post)
 
+router.post('/api/machine/record/remove', machineController.machine_record_remove_post)
+
 router.post('/api/machine/:id/delete', machineController.machine_delete_post)
 
 

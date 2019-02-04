@@ -45,6 +45,22 @@ function addRecord(id) {
 
 }
 
+function removeRecord(id, val) {
+    var record = {
+        id: id,
+        date: val
+    }
+
+    console.log(record);
+
+    $.post('/api/machine/record/remove', record, function (result) {
+        if (result) {
+            window.location.reload();
+        }
+    })
+
+}
+
 function machineDelete(id) {
     if (confirm("Delete this machine?")) {
         $.post('/api/machine/' + id + '/delete', function (result) {
