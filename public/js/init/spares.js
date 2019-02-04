@@ -4,11 +4,23 @@ $(document).ready(function () {
     $('.modal').modal();
 
     $.get('/spares/list', function (listspares) {
-        
+
         spareview = new Vue({
             el: '#spares',
             data: {
                 spares: listspares
+            },
+            mounted: function () {
+                M.Collapsible.init(document.querySelectorAll('.collapsible'), {
+                    accordion: false
+                });
+                M.Modal.init(document.querySelectorAll('.modal'));
+                M.Datepicker.init(document.querySelectorAll('.datepicker'), {
+                    defaultDate: new Date(),
+                    setDefaultDate: true,
+                    format: "yyyy-mm-dd"
+                });
+                M.updateTextFields();
             }
         })
 
