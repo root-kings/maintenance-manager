@@ -98,3 +98,103 @@ a.breadcrumb::before {
 .sharp {
     border-radius: 0px;
 }
+
+/* for arrow buttons */
+
+
+
+.step {
+    display: block;
+    float: left;
+    /* font-weight: bold; */
+    background: #e8f5e9;
+    padding-right: 10px;
+    padding-top: 8px;
+    height: 50px;
+    /* line-height: 32px; */
+    margin-right: 33px;
+    position: relative;
+    text-decoration: none;
+    color: #666;
+}
+
+.step:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: -30px;
+    border: 25px solid transparent;
+    border-left: 15px solid ;
+    border-right: 15px solid transparent;
+    border-color: #e8f5e9;
+    border-left-color: transparent;
+}
+
+.step:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    right: -30px;
+    border: 25px solid transparent;
+    border-left: 15px solid ;
+    border-right: 15px solid transparent;
+    border-left-color: #e8f5e9;
+}
+
+.step:first-of-type {
+    border-radius: 2px 0 0 2px;
+    padding-left: 20px;
+}
+
+.step:first-of-type:before {
+    display: none;
+}
+
+.step:last-of-type {
+    border-radius: 0 2px 2px 0;
+    margin-right: 0px;
+    padding-right: 15px;
+}
+
+.step:last-of-type:after {
+    display: none;
+}
+
+.step.completed {
+    background: #4caf50;
+    color: #fff;
+}
+
+.step.completed:before {
+    border-color: #4caf50;
+    border-left-color: transparent;
+}
+
+.step.completed:after {
+    border-left-color: #4caf50;
+}
+
+
+.step:hover {
+    background: #388e3c;
+    color: #fff;
+}
+
+.step:hover:before {
+    border-color: #388e3c;
+    border-left-color: transparent;
+}
+
+.step:hover:after {
+    border-left-color: #388e3c;
+}
+
+span.tiny {
+    font-size: 0.7em;
+}

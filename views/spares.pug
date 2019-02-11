@@ -8,7 +8,7 @@ block navtitle
 block content
     #sparemodal.modal.modal-fixed-footer
         .modal-content
-            
+
             .row
                 h4.col.s12 Create case
                 form#createspareform.col.s12(action='/spare/create', method='POST')
@@ -16,47 +16,59 @@ block content
                         .input-field.col.s12
                             input#case.validate(type="text", name="case")
                             label(for="case") Case
-                    
+
                         .input-field.col.s12
                             input#incharge.validate(type="text", name="incharge")
                             label(for="incharge") Incharge
-                        
-                        .input-field.col.s12
-                            input#email.validate(type="email", name="email")
-                            label(for="email") Email
 
                         .input-field.col.s12
-                            input#phone.validate(type="tel", name="phone")
-                            label(for="phone") Phone  
-                    
-                    
+                            input#incharge-email.validate(type="email", name="incharge-email")
+                            label(for="incharge-email") Incharge Email
+
+                        .input-field.col.s12
+                            input#incharge-phone.validate(type="tel", name="incharge-phone")
+                            label(for="incharge-phone") Incharge Phone
+
+                        .input-field.col.s12
+                            input#supplier.validate(type="text", name="supplier")
+                            label(for="supplier") Supplier
+
+                        .input-field.col.s12
+                            input#supplier-email.validate(type="email", name="supplier-email")
+                            label(for="supplier-email") Supplier Email
+
+                        .input-field.col.s12
+                            input#supplier-phone.validate(type="tel", name="supplier-phone")
+                            label(for="supplier-phone") Supplier Phone  
+
+
                         //- .input-field.col.s6
                         //-     input.datepicker#requisition(type="text", name="requisition")
                         //-     label(for="requisition") Requisition date (yyyy-mm-dd)  
-                    
+
                         //- .input-field.col.s6
                         //-     input#requisitiontimeout(type="number", name="requisitiontimeout")
                         //-     label(for="requisitiontimeout") timeout (days)
-                    //- .row
-                    //-     .col.s2
-                    //-         h6.span.grey-text Status
-                    //- .row
-                    //-     .col.s4        
-                    //-         a.waves-effect.waves-light.btn-small Button
-                    //-     .col.s8    
-                    //-         a.waves-effect.waves-light.btn-small Button
-                    //- .row    
-                    //-     .col.s4    
-                    //-         a.waves-effect.waves-light.btn-small Button
-                    //-     .col.s8    
-                    //-         a.waves-effect.waves-light.btn-small Button       
+                        //- .row
+                        //-     .col.s2
+                        //-         h6.span.grey-text Status
+                        //- .row
+                        //-     .col.s4        
+                        //-         a.waves-effect.waves-light.btn-small Button
+                        //-     .col.s8    
+                        //-         a.waves-effect.waves-light.btn-small Button
+                        //- .row    
+                        //-     .col.s4    
+                        //-         a.waves-effect.waves-light.btn-small Button
+                        //-     .col.s8    
+                        //-         a.waves-effect.waves-light.btn-small Button       
 
-                
+
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
             a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createspareform').submit();") Submit
-    
+
 
 
 
@@ -64,14 +76,15 @@ block content
         // Modal Trigger
         a.waves-effect.waves-light.btn-floating.btn-large.red.modal-trigger(href="#sparemodal")
             i.material-icons.large add
-    
-        
-                      
+
+
+
+
     
 
 
     #spares(v-once)
-        
+
 
         //- .collection 
             a.collection-item(v-for="spare in spares" @click="viewSpare(spare._id)") {{spare.case}}
@@ -90,15 +103,39 @@ block content
                             span.col.s12.card-title.grey-text.text-darken-4 {{spare.case}}
                                 //- i.material-icons.right.red-text(@click='spareDelete(spare._id)') delete
 
-                            p.col.s12.light {{spare.currentstage}}
+                            //- p.col.s12.light {{spare.currentstage}}
+                        
+                            .step-indicator
+                                a.step.completed(href="#") PR
+                                    br
+                                    | #[span.tiny 22-07-19 ]
+                                a.step.completed(href="#") Vetting
+                                    br
+                                    | #[span.tiny 22-07-19 ]
+                                a.step(href="#") TOD
+                                    br
+                                    | #[span.tiny 22-07-19 ]
+                                a.step(href="#") TSC
+                                    br
+                                    | #[span.tiny 22-07-19 ]
+                                a.step(href="#") SO
+                                    br
+                                    | #[span.tiny 22-07-19 ]
 
                         .row
                             h6.col.s12.light Incharge
                             p.col.s12 {{spare.incharge.name}}
                                 br
-                                | {{spare.incharge.email}}
+                                | Email: {{spare.incharge.email}}
                                 br
-                                | {{spare.incharge.phone}}
+                                | Phone: {{spare.incharge.phone}}
+
+                            h6.col.s12.light Supplier
+                            p.col.s12 {{spare.supplier.name}}
+                                br
+                                | Email: {{spare.supplier.email}}
+                                br
+                                | Phone: {{spare.supplier.phone}}
 
                         //- .row
                             p.col.s4.strong Next 
@@ -111,34 +148,40 @@ block content
                                 br
                                 | {{spare.checkup.interval.value}} {{spare.checkup.interval.unit}}
                             //- p.col.s6 {{spare.location.shop}} - {{spare.location.sector}}
-                        
-                        
-                                
-                    
-                    
-                    
-                    
-                    
-                    //- .card-action
+
+
+
+
+
+
+
+
+                    .card-action
                         //- .input-field
                             input(type="text", name="remark", v-bind:id="'remark'+spare._id")
                             label(v-bind:for="'remark'+spare._id") Remark 
-                        
-                        .input-field
-                            input.datepicker(type="text", name="date", v-bind:id="'date'+spare._id")
-                            label(v-bind:for="'date'+spare._id") Add record date (yyyy-mm-dd)
-                        
-                        a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(spare._id)") Add
-                            i.material-icons.left add
+
+                        //- .input-field
+                        //-     input.datepicker(type="text", name="date", v-bind:id="'date'+spare._id")
+                        //-     label(v-bind:for="'date'+spare._id") Add record date (yyyy-mm-dd)
+
+                        //- a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(spare._id)") Add
+                        //-     i.material-icons.left add
 
                         //- a.btn.btn-flat.btn-bordered.curvy(@click="viewspare(spare._id)") View
                             i.material-icons.left visibility
-                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+spare._id") View
-                            i.material-icons.left visibility
-                        
+                        //- a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+spare._id") View
+                        //-     i.material-icons.left visibility
+
+                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(@click='spareEdit(spare._id)')
+                            i.material-icons edit
                         a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='spareDelete(spare._id)')
                             i.material-icons delete
 
+    
+
+
+        
 
 
 block scripts
