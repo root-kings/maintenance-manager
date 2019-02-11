@@ -56,6 +56,9 @@ router.post('/api/machine/:id/delete', machineController.machine_delete_post)
 
 router.post('/api/machine/:id/remark', machineController.machine_remark_post)
 
+router.post('/api/machine/:id/edit', machineController.machine_update_post)
+
+
 
 //router.get('/machine/:id', machineController.machine_detail_view_get)
 

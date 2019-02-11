@@ -166,6 +166,60 @@ exports.machine_remark_post = (req, res) => {
     })
 }
 
+
+exports.machine_update_post = (req, res) => {
+    let newmachine = {
+        name: req.body.name,
+        // location: {
+        //     sector: req.body.sector,
+        //     number: req.body.number,
+        //     shop: req.body.shop
+        // },
+        case: req.body.case,
+        testing: req.body.testing,
+        remark: req.body.remark,
+        checkup: {
+            interval: {
+                value: req.body.interval,
+                unit: req.body.unit
+            }
+        },
+
+        incharge: {
+            name:req.body.incharge,
+            phone:req.body['incharge-phone'],
+            email:req.body['incharge-email'],
+        },
+
+        supplier: {
+            name:req.body.supplier,
+            phone:req.body['supplier-phone'],
+            email:req.body['supplier-email'],
+            reminder:req.body['supplier-reminder'],
+        }
+
+    };
+
+    Machine.findOneAndUpdate({
+        _id: req.params.id
+    }, newmachine, {
+        safe: true,
+        upsert: true
+    }).exec((err, result) => {
+        if (err) return res.status(500).send(err)
+
+        if (result) return res.redirect('/calibration')
+        
+        return res.send(false)
+
+    })
+
+    // console.log(req.body)
+    // res.send(false)
+
+}
+
+
 // Application -----
 
 exports.machine_detail_view_get = (req, res) => {
