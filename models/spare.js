@@ -10,7 +10,8 @@ var SpareSchema = new Schema({
 
     requisition: {
         timeout: {
-            type: Number
+            type: Number,
+            default: 5
         },
         date: {
             type: Date
@@ -18,7 +19,8 @@ var SpareSchema = new Schema({
     },
     vetting: {
         timeout: {
-            type: Number
+            type: Number,
+            default: 5
         },
         date: {
             type: Date
@@ -26,7 +28,8 @@ var SpareSchema = new Schema({
     },
     tod: {
         timeout: {
-            type: Number
+            type: Number,
+            default: 5
         },
         date: {
             type: Date
@@ -34,7 +37,8 @@ var SpareSchema = new Schema({
     },
     tsc: {
         timeout: {
-            type: Number
+            type: Number,
+            default: 5
         },
         date: {
             type: Date
@@ -42,7 +46,8 @@ var SpareSchema = new Schema({
     },
     so: {
         timeout: {
-            type: Number
+            type: Number,
+            default: 5
         },
         date: {
             type: Date
