@@ -152,30 +152,23 @@ block content
                         span.right Next: {{machine.checkup.next}} | {{machine.soondays}} days left
                 .collapsible-body.card.no-padding.z-depth-0
                     .card-content
-                        .row
-                            p.col.s12.light # {{machine._id}}
-                            span.col.s12.card-title.grey-text.text-darken-4 {{machine.name}}
-                                //- i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
-
-
-                            p.col.s6.truncate Incharge: {{machine.incharge.name}}
-                                br
-                                | Email: {{machine.incharge.email}}
-                                br
-                                | Phone: {{machine.incharge.phone}}
+                        .row.no-margin
+                            p.light.col.s12 # {{machine._id}}
                             
-                            p.col.s6.truncate Supplier: {{machine.supplier.name}}
-                                br
-                                | Email: {{machine.supplier.email}}
-                                br
-                                | Phone: {{machine.supplier.phone}}
-                                br
-                                | Reminder: {{machine.supplier.reminder}} days
+                            span.card-title.col.s12.grey-text.text-darken-4 {{machine.name}}
 
-                        .row
-                            p.col.s4.strong Next 
+                            p.light.col.s12 Case through: {{machine.case}}
+                                //- i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
+                    .divider
+                    .card-content
+                        .row.no-margin
+                            h5.col.s12.light Testing
+                            
+                            p.col.s12 Test: #[span.strong {{machine.testing}} ]
+
+                            p.col.s4 Next 
                                 br
-                                | {{machine.checkup.next}}
+                                | #[span.strong {{machine.checkup.next}} ]
                             p.col.s4 Last
                                 br
                                 | {{machine.checkup.last}}
@@ -184,40 +177,60 @@ block content
                                 | {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
                             //- p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
 
-                        .row
-                            p.col.s12 What to test
-                                br
-                                | {{machine.testing}}
 
-                        .row
-                            p.col.s4 Remarks
-                                br
-                                | {{machine.remark}}
+                    .divider
+                    .card-content
+                        .row.no-margin        
+                            h5.col.s12.light Supplier
+                            
+                            h6.col.s12.no-margin {{machine.supplier.name}}
 
+                            p.col.s12 Email: {{machine.supplier.email}}
+                            
+                            p.col.s12 Phone: {{machine.supplier.phone}}
+                            
+                            p.col.s12 Reminder: {{machine.supplier.reminder}} days
 
+                    .divider
+                    .card-content
+                        .row.no-margin        
+                            h5.col.s12.light Incharge
+                            
+                            h6.col.s12.no-margin {{machine.incharge.name}}
 
-
+                            p.col.s12 Email: {{machine.incharge.email}}
+                            
+                            p.col.s12 Phone: {{machine.incharge.phone}}
+                            
+                            
 
 
                     .card-action
-                        //- .input-field
-                            input(type="text", name="remark", v-bind:id="'remark'+machine._id")
-                            label(v-bind:for="'remark'+machine._id") Remark 
+                        .row.no-margin
+                            h5.col.s12.light Remarks
+                            p.col.s12.no-margin {{machine.remark}}
 
-                        .input-field
-                            input.datepicker(type="text", name="date", v-bind:id="'date'+machine._id")
-                            label(v-bind:for="'date'+machine._id") Add record date (yyyy-mm-dd)
+                            //- .input-field
+                                input(type="text", name="remark", v-bind:id="'remark'+machine._id")
+                                label(v-bind:for="'remark'+machine._id") Remark 
 
-                        a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(machine._id)") Add
-                            i.material-icons.left add
+                            .input-field.col.s12
+                                input.datepicker(type="text", name="date", v-bind:id="'date'+machine._id")
+                                label(v-bind:for="'date'+machine._id") Add record date (yyyy-mm-dd)
+                            .col.s12
+                                a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(machine._id)")
+                                    i.material-icons add
 
-                        //- a.btn.btn-flat.btn-bordered.curvy(@click="viewMachine(machine._id)") View
-                            i.material-icons.left visibility
-                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+machine._id") View
-                            i.material-icons.left visibility
+                                //- a.btn.btn-flat.btn-bordered.curvy(@click="viewMachine(machine._id)") View
+                                    i.material-icons visibility
+                                a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+machine._id")
+                                    i.material-icons visibility
 
-                        a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='machineDelete(machine._id)')
-                            i.material-icons delete
+                                a.btn.btn-flat.btn-bordered.curvy(@click='machineEdit(machine._id)')
+                                    i.material-icons edit
+                                
+                                a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='machineDelete(machine._id)')
+                                    i.material-icons delete
 
                 .modal.white(v-bind:id="'record'+machine._id")
                     ul.collection
