@@ -42,27 +42,6 @@ block content
                             label(for="supplier-phone") Supplier Phone  
 
 
-                        //- .input-field.col.s6
-                        //-     input.datepicker#requisition(type="text", name="requisition")
-                        //-     label(for="requisition") Requisition date (yyyy-mm-dd)  
-
-                        //- .input-field.col.s6
-                        //-     input#requisitiontimeout(type="number", name="requisitiontimeout")
-                        //-     label(for="requisitiontimeout") timeout (days)
-                        //- .row
-                        //-     .col.s2
-                        //-         h6.span.grey-text Status
-                        //- .row
-                        //-     .col.s4        
-                        //-         a.waves-effect.waves-light.btn-small Button
-                        //-     .col.s8    
-                        //-         a.waves-effect.waves-light.btn-small Button
-                        //- .row    
-                        //-     .col.s4    
-                        //-         a.waves-effect.waves-light.btn-small Button
-                        //-     .col.s8    
-                        //-         a.waves-effect.waves-light.btn-small Button       
-
 
 
         .modal-footer
@@ -76,6 +55,31 @@ block content
         // Modal Trigger
         a.waves-effect.waves-light.btn-floating.btn-large.red.modal-trigger(href="#sparemodal")
             i.material-icons.large add
+
+
+
+
+
+    #sparestagemodal.modal.modal-fixed-footer
+        .modal-content
+
+            .row
+                h4.col.s12 Update stages
+                .col.s12
+                    .row
+                        .input-field.col.s12
+                            input#date.datepicker.validate(type="text", name="date")
+                            label(for="date") Date
+
+                        .input-field.col.s12
+                            input#timeout.validate(type="text", name="timeout")
+                            label(for="timeout") Timeout (days)
+
+        .modal-footer
+            a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
+            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createspareform').submit();") Submit
+
+
 
 
 
@@ -106,21 +110,21 @@ block content
                             //- p.col.s12.light {{spare.currentstage}}
                         
                             .step-indicator
-                                a.step.completed(href="#") PR
+                                a.step(v-bind:class="{'completed': (spare.stage>=0) }" ,@click="spareStageUpdate(spare._id, 0)") PR
                                     br
-                                    | #[span.tiny 22-07-19 ]
-                                a.step.completed(href="#") Vetting
+                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
+                                a.step(v-bind:class="{'completed': (spare.stage>=1) }" ,@click="spareStageUpdate(spare._id, 1)") Vetting
                                     br
-                                    | #[span.tiny 22-07-19 ]
-                                a.step(href="#") TOD
+                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
+                                a.step(v-bind:class="{'completed': (spare.stage>=2) }" ,@click="spareStageUpdate(spare._id, 2)") TOD
                                     br
-                                    | #[span.tiny 22-07-19 ]
-                                a.step(href="#") TSC
+                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
+                                a.step(v-bind:class="{'completed': (spare.stage>=3) }" ,@click="spareStageUpdate(spare._id, 3)") TSC
                                     br
-                                    | #[span.tiny 22-07-19 ]
-                                a.step(href="#") SO
+                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
+                                a.step(v-bind:class="{'completed': (spare.stage>=4) }" ,@click="spareStageUpdate(spare._id, 4)") SO
                                     br
-                                    | #[span.tiny 22-07-19 ]
+                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
 
                         .row
                             h6.col.s12.light Incharge
@@ -173,6 +177,8 @@ block content
                         //- a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+spare._id") View
                         //-     i.material-icons.left visibility
 
+                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(@click='spareEditTimerModal(spare._id)')
+                            i.material-icons access_time
                         a.btn.btn-flat.btn-bordered.curvy.modal-trigger(@click='spareEdit(spare._id)')
                             i.material-icons edit
                         a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='spareDelete(spare._id)')

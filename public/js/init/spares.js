@@ -41,3 +41,13 @@ function spareDelete(id) {
         });
     }
 }
+
+function spareStageUpdate(id,stage){
+    $.post('/api/spare/' + id + '/stage',{stage: stage}, function (result) {
+        window.location = '/spares';
+    });
+}
+
+function spareEditTimerModal(id){}
+
+function spareEditTimer(id){}
