@@ -148,6 +148,24 @@ exports.machine_record_remove_post = (req, res) => {
     })
 }
 
+exports.machine_remark_post = (req, res) => {
+    Machine.findOneAndUpdate({
+        _id: req.params.id
+    }, {
+        remark: req.body.remark,
+    }, {
+        safe: true,
+        upsert: true
+    }).exec((err, result) => {
+        if (err) return res.status(500).send(err)
+
+        if (result) return res.send(result)
+
+        return res.send(false)
+
+    })
+}
+
 // Application -----
 
 exports.machine_detail_view_get = (req, res) => {

@@ -85,3 +85,10 @@ function machineDelete(id) {
         });
     }
 }
+function saveRemark(event, id){
+    $.post('/api/machine/' + id + '/remark', {remark:event.target.value}, function (result) {
+        // window.location = '/machines';
+        M.toast({html:'Remark updated!'});
+    });
+    //console.log(id,event.target.value);
+}

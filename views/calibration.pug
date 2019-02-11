@@ -207,12 +207,14 @@ block content
 
                     .card-action
                         .row.no-margin
-                            h5.col.s12.light Remarks
-                            p.col.s12.no-margin {{machine.remark}}
+                            //- h5.col.s12.light Remarks
+                            //- p.col.s12.no-margin {{machine.remark}}
 
-                            //- .input-field
-                                input(type="text", name="remark", v-bind:id="'remark'+machine._id")
+                            .input-field.col.s12
+                                input(type="text", name="remark", v-bind:id="'remark'+machine._id", v-model="machine.remark", @change="saveRemark($event, machine._id)")
                                 label(v-bind:for="'remark'+machine._id") Remark 
+                                //- a.btn.btn-flat.btn-bordered.curvy.right(@click="saveRemark(machine._id)")
+                                    i.material-icons check
 
                             .input-field.col.s12
                                 input.datepicker(type="text", name="date", v-bind:id="'date'+machine._id")
