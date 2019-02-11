@@ -42,8 +42,13 @@ exports.spare_create_post = (req, res) => {
         case: req.body.case,
         incharge: {
             name: req.body.incharge,
-            phone: req.body.phone,
-            email: req.body.email,
+            phone: req.body['incharge-phone'],
+            email: req.body['incharge-email'],
+        },
+        supplier: {
+            name: req.body.supplier,
+            phone: req.body['supplier-phone'],
+            email: req.body['supplier-email'],
         }
         
     })

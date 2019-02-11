@@ -4,7 +4,8 @@ var moment = require('moment')
 
 var SpareSchema = new Schema({
     case: {
-        type: String
+        type: String,
+        default: ""
     },
 
     requisition: {
@@ -23,7 +24,7 @@ var SpareSchema = new Schema({
             type: Date
         }
     },
-    toe: {
+    tod: {
         timeout: {
             type: Number
         },
@@ -56,13 +57,30 @@ var SpareSchema = new Schema({
     },
     incharge: {
         name: {
-            type: String
+            type: String,
+            default: ""
         },
         phone: {
-            type: String
+            type: String,
+            default: ""
         },
         email: {
-            type: String
+            type: String,
+            default: ""
+        }
+    },
+    supplier: {
+        name: {
+            type: String,
+            default: ""
+        },
+        phone: {
+            type: String,
+            default: ""
+        },
+        email: {
+            type: String,
+            default: ""
         }
     },
 
