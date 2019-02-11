@@ -87,23 +87,37 @@ exports.spare_delete_post = (req, res) => {
 }
 
 
-// exports.spare_record_add_post = (req, res) => {
-//     Spare.findOneAndUpdate({
-//         _id: req.body.id
-//     }, {
-//         $push: {
-//             "checkup.history": new moment(req.body.date)
-//         }
+exports.spare_update_post = (req, res) => {
+    let newspare = {
+        case: req.body.case,
+        incharge: {
+            name: req.body.incharge,
+            phone: req.body['incharge-phone'],
+            email: req.body['incharge-email'],
+        },
+        supplier: {
+            name: req.body.supplier,
+            phone: req.body['supplier-phone'],
+            email: req.body['supplier-email'],
+        }
 
-//     }, {
-//         safe: true,
-//         upsert: true
-//     }).exec((err, result) => {
-//         if (err) return res.status(500).send(err)
+    };
 
-//         if (result) return res.send(result)
+    Spare.findOneAndUpdate({
+        _id: req.params.id
+    }, newspare, {
+        safe: true,
+        upsert: true
+    }).exec((err, result) => {
+        if (err) return res.status(500).send(err)
 
-//         return res.send(false)
+        if (result) return res.redirect('/spares')
+        
+        return res.send(false)
 
-//     })
-// }
+    })
+
+    // console.log(req.body)
+    // res.send(false)
+
+}

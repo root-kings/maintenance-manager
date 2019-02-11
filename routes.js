@@ -79,6 +79,8 @@ router.post('/spare/create', spareController.spare_create_post)
 
 router.post('/api/spare/:id/delete', spareController.spare_delete_post)
 
+router.post('/api/spare/:id/edit', spareController.spare_update_post)
+
 
 
 
