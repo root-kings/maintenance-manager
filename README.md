@@ -18,20 +18,22 @@ Start development server with `yarn debug`.
   * [x] Sparepart
   * [ ] User
   * [x] Machine
+  * [ ] Email
 
 * [ ] Pages
   * [ ] Login
   * [ ] Register
-  * [ ] Machine Calibration
+  * [x] Machine Calibration
     * [x] List
     * [x] Details
-    * [ ] Edit
+    * [x] Edit
     * [x] Create
   * [ ] Spares
     * [x] List
-    * [ ] Details
+    * [x] Details
     * [ ] Manange Stages
     * [x] Create
+  * [ ] Scheduled emails
   * [ ] Homepage
   * [ ] About
   * [ ] User Profile
