@@ -75,7 +75,7 @@ block content
                 .row
                     p.col.s12.light # {{machine._id}}
                     h4.col.s12 Edit {{machine.name}}
-                    form#createmachineform.col.s12(v-bind:action='"/machine/"+machine._id+"/edit"', method='POST')
+                    form#createmachineform.col.s12(v-bind:action='"/api/machine/"+machine._id+"/edit"', method='POST')
                         .row
                             .input-field.col.s12
                                 input#name.validate(type="text", name="name", v-model="machine.name")
