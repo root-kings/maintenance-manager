@@ -40,7 +40,7 @@ $(document).ready(function () {
 
 });
 
-function viewMachine(id) {
+function machineEdit(id) {
     localStorage.setItem('machineId', id);
     window.location.href = '/machine';
 }
