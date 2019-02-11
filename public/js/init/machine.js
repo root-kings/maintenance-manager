@@ -16,12 +16,17 @@ function populate(id) {
                 machine: machine
             },
             mounted: function () {
-                M.Datepicker.init(document.getElementById('date'), {
-                    defaultDate: new Date(),
-                    setDefaultDate: true,
-                    format: "yyyy-mm-dd"
-                });
+                // M.Datepicker.init(document.getElementById('date'), {
+                //     defaultDate: new Date(),
+                //     setDefaultDate: true,
+                //     format: "yyyy-mm-dd"
+                // });
+
+
                 M.updateTextFields();
+
+                M.FormSelect.init(document.querySelectorAll('select'));
+
 
             }
         })
