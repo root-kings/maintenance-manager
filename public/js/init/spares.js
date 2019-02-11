@@ -29,7 +29,15 @@ $(document).ready(function () {
 });
 
 
-function viewSpare(id) {
+function spareEdit(id) {
     localStorage.setItem('spareId', id);
     window.location.href = '/spare';
+}
+
+function spareDelete(id) {
+    if (confirm("Delete this spare?")) {
+        $.post('/api/spare/' + id + '/delete', function (result) {
+            window.location = '/spares';
+        });
+    }
 }
