@@ -24,6 +24,7 @@ $(document).ready(function () {
                 M.Collapsible.init(document.querySelectorAll('.collapsible'), {
                     accordion: false
                 });
+                M.FormSelect.init(document.querySelectorAll('select'));
                 M.Modal.init(document.querySelectorAll('.modal'));
                 M.Datepicker.init(document.querySelectorAll('.datepicker'), {
                     defaultDate: new Date(),

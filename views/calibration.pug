@@ -10,12 +10,12 @@ block content
         .row
             .col.s12
                 h4.header.light.white-text Dashboard
-        
+
             //- .divider.green.darken-5
 
     #machinemodal.modal.modal-fixed-footer
         .modal-content
-            
+
             .row
                 h4.col.s12 Create machine
                 form#createmachineform.col.s12(action='/machine/create', method='POST')
@@ -23,20 +23,34 @@ block content
                         .input-field.col.s12
                             input#name.validate(type="text", name="name")
                             label(for="name") Name
-                    .row
+                    
                         .input-field.col.s6
                             input#interval.validate(type="text", name="interval")
                             label(for="interval") Checkup Interval
                         .input-field.col.s6
                             select(name="unit")
                                 option(value="days") Days
-                                option(value="months") Months
+                                option(value="months" selected) Months
                                 option(value="years") Years    
                             //- label Unit
-                    .row
-                        .input-field.col.s12
+                        .input-field.col.s6
+                            select(name="case")
+                                option(value="open") Open
+                                option(value="lte") LTE
+                                option(value="cp") CP
+                                option(value="gfr") GFR
+                            label Case through
+
+                        .input-field.col.s6
                             input#testing.validate(type="text", name="testing")
                             label(for="testing") What to test
+
+
+                        .input-field.col.s12
+                            input#remark(type="text", name="remark")
+                            label(for="remark") Remarks
+
+
                     //- .row
                         .input-field.col.s4
                             input#sector.validate(type="text", name="sector")
@@ -47,23 +61,45 @@ block content
                         .input-field.col.s4
                             input#shop.validate(type="text", name="shop")
                             label(for="shop") Shop
-
+                    
+                        
+                   
                     .row
-                        .input-field.col.s12
-                            input#remark(type="text", name="remark")
-                            label(for="remark") Remarks
-                    .row
-                        .input-field.col.s12
+                        .input-field.col.s6
                             input#incharge.validate(type="text", name="incharge")
                             label(for="incharge") Incharge
                     
+                        .input-field.col.s6
+                            input#incharge-email.validate(type="email", name="incharge-email")
+                            label(for="incharge-email") Incharge Email
+
+                        .input-field.col.s6
+                            input#incharge-phone.validate(type="tel", name="incharge-phone")
+                            label(for="incharge-phone") Phone
+
+                    .row
+                        .input-field.col.s6
+                            input#supplier.validate(type="text", name="supplier")
+                            label(for="supplier") Supplier
                     
+                        .input-field.col.s6
+                            input#supplier-email.validate(type="email", name="supplier-email")
+                            label(for="supplier-email") Supplier Email
+
+                        .input-field.col.s6
+                            input#supplier-phone.validate(type="tel", name="supplier-phone")
+                            label(for="supplier-phone") Supplier Phone
+                        .input-field.col.s6
+                            input#supplier-reminder.validate(type="number", name="supplier-reminder", value="10", min="0")
+                            label(for="supplier-reminder") Reminder before (days)
+
                     
+
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
             a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createmachineform').submit();") Submit
-    
+
 
 
 
@@ -71,8 +107,8 @@ block content
         // Modal Trigger
         a.waves-effect.waves-light.btn-floating.btn-large.red.modal-trigger(href="#machinemodal")
             i.material-icons.large add
-    
-    
+
+
     #upcoming
         //- .row
             .col.s12.m6(v-for="machine in machines")
@@ -81,7 +117,7 @@ block content
                         span.card-title.grey-text.text-darken-4 {{machine.name}}
                             a(href="#").orange-text
                                 i.material-icons.right star
-                        
+
                         p {{machine.checkup.next}} 
                     .card-action
                         //- a.btn.btn-flat.btn-bordered.curvy(@click="markdone(machine._id)") Done
@@ -101,7 +137,7 @@ block content
 
         //- .collection
             a.collection-item.avatar(href="#" v-for="machine in machines" @click="viewMachine(machine._id)" v-bind:class="{'firewatch white-text': machine.soon }")
-            
+
                 .row
                     span.col.s12.title.text-darken-4 {{machine.name}}                            
 
@@ -121,8 +157,20 @@ block content
                             span.col.s12.card-title.grey-text.text-darken-4 {{machine.name}}
                                 //- i.material-icons.right.red-text(@click='machineDelete(machine._id)') delete
 
-                        
-                            p.col.s12 Incharge: {{machine.incharge}}
+
+                            p.col.s6.truncate Incharge: {{machine.incharge.name}}
+                                br
+                                | Email: {{machine.incharge.email}}
+                                br
+                                | Phone: {{machine.incharge.phone}}
+                            
+                            p.col.s6.truncate Supplier: {{machine.supplier.name}}
+                                br
+                                | Email: {{machine.supplier.email}}
+                                br
+                                | Phone: {{machine.supplier.phone}}
+                                br
+                                | Reminder: {{machine.supplier.reminder}} days
 
                         .row
                             p.col.s4.strong Next 
@@ -135,7 +183,7 @@ block content
                                 br
                                 | {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
                             //- p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
-                        
+
                         .row
                             p.col.s12 What to test
                                 br
@@ -145,21 +193,21 @@ block content
                             p.col.s4 Remarks
                                 br
                                 | {{machine.remark}}
-                                
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
                     .card-action
                         //- .input-field
                             input(type="text", name="remark", v-bind:id="'remark'+machine._id")
                             label(v-bind:for="'remark'+machine._id") Remark 
-                        
+
                         .input-field
                             input.datepicker(type="text", name="date", v-bind:id="'date'+machine._id")
                             label(v-bind:for="'date'+machine._id") Add record date (yyyy-mm-dd)
-                        
+
                         a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(machine._id)") Add
                             i.material-icons.left add
 
@@ -167,7 +215,7 @@ block content
                             i.material-icons.left visibility
                         a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+machine._id") View
                             i.material-icons.left visibility
-                        
+
                         a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='machineDelete(machine._id)')
                             i.material-icons delete
 

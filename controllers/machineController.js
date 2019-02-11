@@ -46,16 +46,29 @@ exports.machine_create_post = (req, res) => {
         //     number: req.body.number,
         //     shop: req.body.shop
         // },
-        incharge: req.body.incharge,
+        case: req.body.case,
         testing: req.body.testing,
         remark: req.body.remark,
         checkup: {
-
             interval: {
                 value: req.body.interval,
                 unit: req.body.unit
             }
+        },
+
+        incharge: {
+            name:req.body.incharge,
+            phone:req.body['incharge-phone'],
+            email:req.body['incharge-email'],
+        },
+
+        supplier: {
+            name:req.body.supplier,
+            phone:req.body['supplier-phone'],
+            email:req.body['supplier-email'],
+            reminder:req.body['supplier-reminder'],
         }
+
     })
 
     newmachine.save(err => {
