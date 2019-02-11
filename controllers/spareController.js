@@ -121,3 +121,35 @@ exports.spare_update_post = (req, res) => {
     // res.send(false)
 
 }
+
+
+exports.spare_stage_update_post = (req, res) => {
+    const stages  = ["requisition","vetting","tod","tsc","so"]
+    
+    state = {}
+
+    state.stage = req.body.stage
+
+    state[stages[req.body.stage]] = {
+        date: new moment()
+    }
+
+    // console.log(state)
+
+    Spare.findOneAndUpdate({
+        _id: req.params.id
+    }, 
+        state
+    , {
+        safe: true,
+        upsert: true
+    }).exec((err, result) => {
+        if (err) return res.status(500).send(err)
+
+        if (result) return res.redirect('/spares')
+        
+        return res.send(false)
+
+    })
+
+}

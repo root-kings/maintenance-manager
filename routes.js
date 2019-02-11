@@ -81,6 +81,9 @@ router.post('/api/spare/:id/delete', spareController.spare_delete_post)
 
 router.post('/api/spare/:id/edit', spareController.spare_update_post)
 
+router.post('/api/spare/:id/stage', spareController.spare_stage_update_post)
+
+
 
 
 
