@@ -71,9 +71,9 @@ a.breadcrumb::before {
 .burning-orange {
     background: #FF416C;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+    background: -webkit-linear-gradient(to left, #FF4B2B, #FF416C);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background: linear-gradient(to left, #FF4B2B, #FF416C);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -108,11 +108,11 @@ a.breadcrumb::before {
     float: left;
     /* font-weight: bold; */
     background: #e8f5e9;
-    padding-right: 10px;
+    padding-right: 5px;
     padding-top: 8px;
     height: 50px;
     /* line-height: 32px; */
-    margin-right: 33px;
+    margin-right: 23px;
     position: relative;
     text-decoration: none;
     color: #666;
@@ -125,10 +125,10 @@ a.breadcrumb::before {
     height: 0;
     position: absolute;
     top: 0;
-    left: -30px;
+    left: -20px;
     border: 25px solid transparent;
     border-left: 15px solid ;
-    border-right: 15px solid transparent;
+    border-right: 5px solid transparent;
     border-color: #e8f5e9;
     border-left-color: transparent;
 }
@@ -149,7 +149,7 @@ a.breadcrumb::before {
 
 .step:first-of-type {
     border-radius: 2px 0 0 2px;
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 .step:first-of-type:before {
