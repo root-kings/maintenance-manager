@@ -28,10 +28,10 @@ Start development server with `yarn debug`.
     * [x] Details
     * [x] Edit
     * [x] Create
-  * [ ] Spares
+  * [x] Spares
     * [x] List
     * [x] Details
-    * [ ] Manange Stages
+    * [x] Manange Stages
     * [x] Create
   * [ ] Scheduled emails
   * [ ] Homepage
