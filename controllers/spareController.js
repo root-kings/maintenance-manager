@@ -153,3 +153,25 @@ exports.spare_stage_update_post = (req, res) => {
 		return res.send(false)
 	})
 }
+
+exports.spare_stage_timer_update_post = (req, res) => {
+
+	console.log(req.body)
+
+	Spare.findOneAndUpdate(
+		{
+			_id: req.params.id
+		},
+		req.body,
+		{
+			safe: true,
+			upsert: true
+		}
+	).exec((err, result) => {
+		if (err) return res.status(500).send(err)
+
+		if (result) return res.send(result)
+
+		return res.send(false)
+	})
+}

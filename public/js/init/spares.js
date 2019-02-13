@@ -30,7 +30,16 @@ document.addEventListener('DOMContentLoaded', function() {
 							accordion: false
 						}
 					)
-					M.Modal.init(document.querySelectorAll('.modal'))
+					// M.Modal.init(document.querySelectorAll('.modal'))
+					// M.Datepicker.init(
+					// 	document.querySelectorAll('.datepicker'),
+					// 	{
+					// 		defaultDate: new Date(),
+					// 		setDefaultDate: true,
+					// 		format: 'yyyy-mm-dd'
+					// 	}
+					// )
+					M.updateTextFields()
 				}
 			})
 		})
@@ -62,21 +71,20 @@ function spareDelete(id) {
 }
 
 function spareStageUpdate(id, stage) {
-	
 	fetch('/api/spare/' + id + '/stage', {
-		method: 'POST', 
-		mode: 'cors', 
+		method: 'POST',
+		mode: 'cors',
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({ stage: stage }) 
+		body: JSON.stringify({ stage: stage })
 	})
 		.then(function(response) {
 			return response.json()
 		})
 		.then(function(result) {
 			if (result) {
-				updateView();
+				updateView()
 				M.toast({ html: 'Updated!' })
 			}
 		})
@@ -95,9 +103,60 @@ function spareEditTimerModal(id) {
 	M.updateTextFields()
 }
 
-function spareEditTimer(id) {}
+function spareEditTimer(id) {
+	var newtimerform = new FormData(
+		document.getElementById('sparestagemodalform' + id)
+	)
+	var newtimerdata = {}
+	newtimerform.forEach(function(value, key) {
+		newtimerdata[key] = value
+	})
 
-function updateView () {
+	var newtimer = {
+		requisition: {
+			date: new Date(newtimerdata['requisition-date']),
+			timeout: newtimerdata['requisition-timeout']
+		},
+		so: {
+			date: new Date(newtimerdata['so-date']),
+			timeout: newtimerdata['so-timeout']
+		},
+		tod: {
+			date: new Date(newtimerdata['tod-date']),
+			timeout: newtimerdata['tod-timeout']
+		},
+		tsc: {
+			date: new Date(newtimerdata['tsc-date']),
+			timeout: newtimerdata['tsc-timeout']
+		},
+		vetting: {
+			date: new Date(newtimerdata['vetting-date']),
+			timeout: newtimerdata['vetting-timeout']
+		}
+	}
+
+	console.log(newtimer)
+
+	fetch('/api/spare/' + id + '/stage/timer', {
+		method: 'POST',
+		mode: 'cors',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(newtimer)
+	})
+		.then(function(response) {
+			return response.json()
+		})
+		.then(function(result) {
+			if (result) {
+				// updateView()
+				M.toast({ html: 'Updated!' })
+			}
+		})
+}
+
+function updateView() {
 	fetch('/api/spares')
 		.then(function(response) {
 			return response.json()
@@ -115,7 +174,6 @@ function updateView () {
 				spare.so.date = moment(spare.so.date).format('YYYY-MM-DD')
 			})
 
-			spareview.spares= listspares
-				
+			spareview.spares = listspares
 		})
 }

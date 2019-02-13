@@ -168,7 +168,7 @@ block content
 
                         .row
                             h4.col.s12 Update stages
-                            form.col.s12(v-bind:action="'/api/spare/'+spare._id+'/stage'")
+                            form.col.s12(v-bind:action="'/api/spare/'+spare._id+'/stage'", v-bind:id="'sparestagemodalform'+spare._id")
                                 .row
                                     h6.light.col.s12 P. R. Raised
                                     .input-field.col.s6
@@ -220,7 +220,7 @@ block content
 
                     .modal-footer
                         a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-                        a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:spareEditTimer(spare._id)") Submit
+                        a.btn.modal-close.waves-effect.waves-light.green.white-text(@click="spareEditTimer(spare._id)") Submit
 
 
 
