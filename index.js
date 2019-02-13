@@ -28,6 +28,7 @@ app.use(bodyParser.json())
 
 app.use(express.static('public'))
 app.use(express.static('public/build/html'))
+app.use(express.static('public/build'))
 
 app.set('view engine', 'pug')
 app.set('views', './views')
