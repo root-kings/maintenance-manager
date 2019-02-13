@@ -1,8 +1,7 @@
-var spareview;
+var spareview, stageEditView;
 
 $(document).ready(function () {
-    $('.modal').modal();
-
+    
     $.get('/spares/list', function (listspares) {
 
         spareview = new Vue({
@@ -15,12 +14,12 @@ $(document).ready(function () {
                     accordion: false
                 });
                 M.Modal.init(document.querySelectorAll('.modal'));
-                M.Datepicker.init(document.querySelectorAll('.datepicker'), {
-                    defaultDate: new Date(),
-                    setDefaultDate: true,
-                    format: "yyyy-mm-dd"
-                });
-                M.updateTextFields();
+                // M.Datepicker.init(document.querySelectorAll('.datepicker'), {
+                //     defaultDate: new Date(),
+                //     setDefaultDate: true,
+                //     format: "yyyy-mm-dd"
+                // });
+                // M.updateTextFields();
             }
         })
 
@@ -48,6 +47,32 @@ function spareStageUpdate(id,stage){
     });
 }
 
-function spareEditTimerModal(id){}
+function spareEditTimerModal(id){
+    
+    // var instances = M.Modal.init(document.getElementById('sparestagemodal'));
+    
+    
+    $.get('/spare/'+id, function (spare) {
+    
+        stageEditView = new Vue({
+            el: '#sparestagemodal',
+            data: {
+                spare: spare
+            },
+            mounted: function () {
+                // instances.open();
+                
+                M.Datepicker.init(document.querySelectorAll('.datepicker'), {
+                    defaultDate: new Date(),
+                    setDefaultDate: true,
+                    format: "yyyy-mm-dd"
+                });
+
+                M.updateTextFields();
+            }
+        })
+
+    })
+}
 
 function spareEditTimer(id){}
