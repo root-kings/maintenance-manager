@@ -23,17 +23,9 @@ exports.spares_get = (req, res) => {
 	})
 }
 
-exports.spares_list_get = (req, res) => {
-	Spare.find({}).exec((err, result) => {
-		if (err) return res.status(500).send(err)
-
-		if (result) return res.send(result)
-
-		return res.send(false)
-	})
-}
 
 exports.spare_create_post = (req, res) => {
+	let newdate = new moment()
 	let newspare = new Spare({
 		case: req.body.case,
 		incharge: {
@@ -45,8 +37,25 @@ exports.spare_create_post = (req, res) => {
 			name: req.body.supplier,
 			phone: req.body['supplier-phone'],
 			email: req.body['supplier-email']
+		},
+
+		requisition: {
+			date: newdate
+		},
+		vetting: {
+			date: new moment(newdate).add(5, 'days')
+		},
+		tod: {
+			date: new moment(newdate).add(10, 'days')
+		},
+		tsc: {
+			date: new moment(newdate).add(15, 'days')
+		},
+		so: {
+			date: new moment(newdate).add(20, 'days')
 		}
 	})
+	console.log(newspare)
 
 	newspare.save(err => {
 		if (err) return res.status(500).send(err)
@@ -139,7 +148,7 @@ exports.spare_stage_update_post = (req, res) => {
 	).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
-		if (result) return res.redirect('/spares')
+		if (result) return res.send(true)
 
 		return res.send(false)
 	})

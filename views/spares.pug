@@ -46,7 +46,7 @@ block content
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createspareform').submit();") Submit
+            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:document.getElementById('createspareform').submit();") Submit
 
 
 
@@ -56,68 +56,6 @@ block content
         a.waves-effect.waves-light.btn-floating.btn-large.red.modal-trigger(href="#sparemodal")
             i.material-icons.large add
 
-
-
-
-
-    #sparestagemodal.modal.bottom-sheet.no-autoinit
-        .modal-content
-
-            .row
-                h4.col.s12 Update stages
-                .col.s12
-                    .row
-                        h6.light.col.s12 P. R. Raised
-                        .input-field.col.s6
-                            input#requisition-date.datepicker.validate(type="text", name="requisition-date", v-model="spare.requisition.date")
-                            label(for="requisition-date") Date
-
-                        .input-field.col.s6
-                            input#requisition-timeout.validate(type="text", name="requisition-timeout", v-model="spare.requisition.timeout")
-                            label(for="requisition-timeout") Timeout (days)
-                    .row
-                        h6.light.col.s12 Vetting
-                        .input-field.col.s6
-                            input#vetting-date.datepicker.validate(type="text", name="vetting-date", v-model="spare.vetting.date")
-                            label(for="vetting-date") Date
-
-                        .input-field.col.s6
-                            input#vetting-timeout.validate(type="text", name="vetting-timeout", v-model="spare.vetting.timeout")
-                            label(for="vetting-timeout") Timeout (days)
-                    .row
-                        h6.light.col.s12 TOD
-                        .input-field.col.s6
-                            input#tod-date.datepicker.validate(type="text", name="tod-date", v-model="spare.tod.date")
-                            label(for="tod-date") Date
-
-                        .input-field.col.s6
-                            input#tod-timeout.validate(type="text", name="tod-timeout", v-model="spare.tod.timeout")
-                            label(for="tod-timeout") Timeout (days)
-                    .row
-                        h6.light.col.s12 TSC
-                        .input-field.col.s6
-                            input#tsc-date.datepicker.validate(type="text", name="tsc-date", v-model="spare.tsc.date")
-                            label(for="tsc-date") Date
-
-                        .input-field.col.s6
-                            input#tsc-timeout.validate(type="text", name="tsc-timeout", v-model="spare.tsc.timeout")
-                            label(for="tsc-timeout") Timeout (days)
-                    .row
-                        h6.light.col.s12 SO
-                        .input-field.col.s6
-                            input#so-date.datepicker.validate(type="text", name="so-date", v-model="spare.so.date")
-                            label(for="so-date") Date
-
-                        .input-field.col.s6
-                            input#so-timeout.validate(type="text", name="so-timeout", v-model="spare.so.timeout")
-                            label(for="so-timeout") Timeout (days)
-
-
-
-
-        .modal-footer
-            a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createspareform').submit();") Submit
 
 
 
@@ -152,19 +90,19 @@ block content
                             .step-indicator
                                 a.step(href='#!' v-bind:class="{'completed': (spare.stage>=0) }" ,@click="spareStageUpdate(spare._id, 0)") PR
                                     br
-                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
+                                    | #[span.tiny {{moment(spare.requisition.date).format('DD MMM \'YY')}} ]
                                 a.step(href='#!' v-bind:class="{'completed': (spare.stage>=1) }" ,@click="spareStageUpdate(spare._id, 1)") Vetting
                                     br
                                     | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
                                 a.step(href='#!' v-bind:class="{'completed': (spare.stage>=2) }" ,@click="spareStageUpdate(spare._id, 2)") TOD
                                     br
-                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
+                                    | #[span.tiny {{moment(spare.tod.date).format('DD MMM \'YY')}} ]
                                 a.step(href='#!' v-bind:class="{'completed': (spare.stage>=3) }" ,@click="spareStageUpdate(spare._id, 3)") TSC
                                     br
-                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
+                                    | #[span.tiny {{moment(spare.tsc.date).format('DD MMM \'YY')}} ]
                                 a.step(href='#!' v-bind:class="{'completed': (spare.stage>=4) }" ,@click="spareStageUpdate(spare._id, 4)") SO
                                     br
-                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
+                                    | #[span.tiny {{moment(spare.so.date).format('DD MMM \'YY')}} ]
 
                         .row
                             h6.col.s12.light Incharge
@@ -217,12 +155,74 @@ block content
                         //- a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+spare._id") View
                         //-     i.material-icons.left visibility
 
-                        //- a.btn.btn-flat.btn-bordered.curvy(@click='spareEditTimerModal(spare._id)' data-target="sparestagemodal")
+                        a.btn.btn-flat.btn-bordered.curvy(@click='spareEditTimerModal(spare._id)' data-target="sparestagemodal")
                             i.material-icons access_time
                         a.btn.btn-flat.btn-bordered.curvy(@click='spareEdit(spare._id)')
                             i.material-icons edit
                         a.btn.btn-flat.red.white-text.btn-bordered.curvy(@click='spareDelete(spare._id)')
                             i.material-icons delete
+
+
+                .modal.modal-fixed-footer.bottom-sheet.no-autoinit(v-bind:id="'sparestagemodal'+spare._id")
+                    .modal-content
+
+                        .row
+                            h4.col.s12 Update stages
+                            form.col.s12(v-bind:action="'/api/spare/'+spare._id+'/stage'")
+                                .row
+                                    h6.light.col.s12 P. R. Raised
+                                    .input-field.col.s6
+                                        input#requisition-date.datepicker.validate(type="text", name="requisition-date", v-model="spare.requisition.date")
+                                        label(for="requisition-date") Date
+
+                                    .input-field.col.s6
+                                        input#requisition-timeout.validate(type="text", name="requisition-timeout", v-model="spare.requisition.timeout")
+                                        label(for="requisition-timeout") Timeout (days)
+                                .row
+                                    h6.light.col.s12 Vetting
+                                    .input-field.col.s6
+                                        input#vetting-date.datepicker.validate(type="text", name="vetting-date", v-model="spare.vetting.date")
+                                        label(for="vetting-date") Date
+
+                                    .input-field.col.s6
+                                        input#vetting-timeout.validate(type="text", name="vetting-timeout", v-model="spare.vetting.timeout")
+                                        label(for="vetting-timeout") Timeout (days)
+                                .row
+                                    h6.light.col.s12 TOD
+                                    .input-field.col.s6
+                                        input#tod-date.datepicker.validate(type="text", name="tod-date", v-model="spare.tod.date")
+                                        label(for="tod-date") Date
+
+                                    .input-field.col.s6
+                                        input#tod-timeout.validate(type="text", name="tod-timeout", v-model="spare.tod.timeout")
+                                        label(for="tod-timeout") Timeout (days)
+                                .row
+                                    h6.light.col.s12 TSC
+                                    .input-field.col.s6
+                                        input#tsc-date.datepicker.validate(type="text", name="tsc-date", v-model="spare.tsc.date")
+                                        label(for="tsc-date") Date
+
+                                    .input-field.col.s6
+                                        input#tsc-timeout.validate(type="text", name="tsc-timeout", v-model="spare.tsc.timeout")
+                                        label(for="tsc-timeout") Timeout (days)
+                                .row
+                                    h6.light.col.s12 SO
+                                    .input-field.col.s6
+                                        input#so-date.datepicker.validate(type="text", name="so-date", v-model="spare.so.date")
+                                        label(for="so-date") Date
+
+                                    .input-field.col.s6
+                                        input#so-timeout.validate(type="text", name="so-timeout", v-model="spare.so.timeout")
+                                        label(for="so-timeout") Timeout (days)
+
+
+
+
+                    .modal-footer
+                        a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
+                        a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:spareEditTimer(spare._id)") Submit
+
+
 
 
 

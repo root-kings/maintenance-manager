@@ -1,11 +1,23 @@
 var spareview, stageEditView, stageEditViewModal
 
 document.addEventListener('DOMContentLoaded', function() {
-	fetch('/spares/list')
+	fetch('/api/spares')
 		.then(function(response) {
 			return response.json()
 		})
 		.then(function(listspares) {
+			listspares.forEach(spare => {
+				spare.requisition.date = moment(spare.requisition.date).format(
+					'YYYY-MM-DD'
+				)
+				spare.vetting.date = moment(spare.vetting.date).format(
+					'YYYY-MM-DD'
+				)
+				spare.tod.date = moment(spare.tod.date).format('YYYY-MM-DD')
+				spare.tsc.date = moment(spare.tsc.date).format('YYYY-MM-DD')
+				spare.so.date = moment(spare.so.date).format('YYYY-MM-DD')
+			})
+
 			spareview = new Vue({
 				el: '#spares',
 				data: {
@@ -50,51 +62,60 @@ function spareDelete(id) {
 }
 
 function spareStageUpdate(id, stage) {
-	// $.post('/api/spare/' + id + '/stage',{stage: stage}, function (result) {
-	//     window.location = '/spares';
-	// });
-	spareEditTimerModal(id)
-}
-
-function spareEditTimerModal(id) {
-	fetch('/api/spare/' + id)
+	
+	fetch('/api/spare/' + id + '/stage', {
+		method: 'POST', 
+		mode: 'cors', 
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ stage: stage }) 
+	})
 		.then(function(response) {
 			return response.json()
 		})
-		.then(function(spare) {
-			spare.requisition.date = moment(spare.requisition.date).format(
-				'YYYY-MM-DD'
-			)
-			spare.vetting.date = moment(spare.vetting.date).format('YYYY-MM-DD')
-			spare.tod.date = moment(spare.tod.date).format('YYYY-MM-DD')
-			spare.tsc.date = moment(spare.tsc.date).format('YYYY-MM-DD')
-			spare.so.date = moment(spare.so.date).format('YYYY-MM-DD')
-
-			stageEditView = new Vue({
-				el: '#sparestagemodal',
-				data: {
-					spare: spare
-				},
-				mounted: function() {
-					stageEditViewModal = M.Modal.init(
-						document.getElementById('sparestagemodal')
-					)
-
-					stageEditViewModal.open()
-
-					M.Datepicker.init(
-						document.querySelectorAll('.datepicker'),
-						{
-							defaultDate: new Date(),
-							setDefaultDate: true,
-							format: 'yyyy-mm-dd'
-						}
-					)
-
-					M.updateTextFields()
-				}
-			})
+		.then(function(result) {
+			if (result) {
+				updateView();
+				M.toast({ html: 'Updated!' })
+			}
 		})
+	/* $.post('/api/spare/' + id + '/stage',updateObject, function (result) {
+	    window.location = '/spares';
+	}); */
+}
+
+function spareEditTimerModal(id) {
+	stageEditViewModal = M.Modal.init(
+		document.getElementById('sparestagemodal' + id)
+	)
+
+	stageEditViewModal.open()
+
+	M.updateTextFields()
 }
 
 function spareEditTimer(id) {}
+
+function updateView () {
+	fetch('/api/spares')
+		.then(function(response) {
+			return response.json()
+		})
+		.then(function(listspares) {
+			listspares.forEach(spare => {
+				spare.requisition.date = moment(spare.requisition.date).format(
+					'YYYY-MM-DD'
+				)
+				spare.vetting.date = moment(spare.vetting.date).format(
+					'YYYY-MM-DD'
+				)
+				spare.tod.date = moment(spare.tod.date).format('YYYY-MM-DD')
+				spare.tsc.date = moment(spare.tsc.date).format('YYYY-MM-DD')
+				spare.so.date = moment(spare.so.date).format('YYYY-MM-DD')
+			})
+
+			spareview.spares= listspares
+				
+		})
+}
