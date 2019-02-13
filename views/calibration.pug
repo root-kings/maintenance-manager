@@ -98,7 +98,7 @@ block content
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createmachineform').submit();") Submit
+            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:document.getElementById('createmachineform').submit();") Submit
 
 
 
@@ -109,7 +109,7 @@ block content
             i.material-icons.large add
 
 
-    #upcoming(v-once)
+    #upcoming
         //- .row
             .col.s12.m6(v-for="machine in machines")
                 //- .card.rounded

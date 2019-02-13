@@ -1,17 +1,21 @@
 var machineview;
 
-$(function () {
+document.addEventListener('DOMContentLoaded', function() {
     populate(localStorage.getItem('machineId'));
 })
 
 function populate(id) {
-    $.get('/api/machine/' + id, function (machine) {
-        machine.checkup.history.sort().reverse();
+    fetch('/api/machine/' + id).then(function(response){
+        return response.json();
+    }).then(function (machine) {
+        // machine.checkup.history.sort().reverse();
 
         // machine.checkup.last = moment(this.checkup.history.sort()[0]).format("DD MMM YYYY");
+        machine.caseoptions = ['open','lte','cp','gfr'];
 
         machineview = new Vue({
             el: '#machine',
+
             data: {
                 machine: machine
             },
@@ -22,54 +26,14 @@ function populate(id) {
                 //     format: "yyyy-mm-dd"
                 // });
 
+                M.FormSelect.init(document.querySelectorAll('select'));
 
                 M.updateTextFields();
 
-                M.FormSelect.init(document.querySelectorAll('select'));
 
 
             }
         })
 
     })
-}
-
-function addRecord(id) {
-    var record = {
-        id: id,
-        date: $("#date").val()
-    }
-
-    console.log(record);
-
-    $.post('/api/machine/record/add', record, function (result) {
-        if (result) {
-            window.location.reload();
-        }
-    })
-
-}
-
-function removeRecord(id, val) {
-    var record = {
-        id: id,
-        date: val
-    }
-
-    console.log(record);
-
-    $.post('/api/machine/record/remove', record, function (result) {
-        if (result) {
-            window.location.reload();
-        }
-    })
-
-}
-
-function machineDelete(id) {
-    if (confirm("Delete this machine?")) {
-        $.post('/api/machine/' + id + '/delete', function (result) {
-            window.location = '/machines';
-        });
-    }
 }

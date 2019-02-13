@@ -70,13 +70,13 @@ block content
                             i.material-icons close
 
 
-        .card.sharp
+        .card.sharp.z-depth-0
             .card-content
-                .row
+                .row.no-margin
                     p.col.s12.light # {{machine._id}}
                     h4.col.s12 Edit {{machine.name}}
                     form#createmachineform.col.s12(v-bind:action='"/api/machine/"+machine._id+"/edit"', method='POST')
-                        .row
+                        .row.no-margin
                             .input-field.col.s12
                                 input#name.validate(type="text", name="name", v-model="machine.name")
                                 label(for="name") Name
@@ -86,13 +86,15 @@ block content
                                 //- label(for="interval") Checkup Interval ({{machine.checkup.interval.unit}})
                                 label(for="interval") Checkup Interval
                             .input-field.col.s6
-                                select(name="unit", v-model="machine.checkup.interval.unit")
+                                select.no-autoinit(name="unit", v-model="machine.checkup.interval.unit")
                                     option(value="days") Days
                                     option(value="months" selected) Months
                                     option(value="years") Years    
                                 //- label Unit
+                        
+                        .row.no-margin
                             .input-field.col.s6
-                                select(name="case", v-model="machine.case")
+                                select.no-autoinit(name="case", v-model="machine.case")
                                     option(value="open") Open
                                     option(value="lte") LTE
                                     option(value="cp") CP
@@ -122,7 +124,7 @@ block content
                         
                             
                         
-                        .row
+                        .row.no-margin
                             .input-field.col.s6
                                 input#incharge.validate(type="text", name="incharge", v-model="machine.incharge.name")
                                 label(for="incharge") Incharge
@@ -135,7 +137,7 @@ block content
                                 input#incharge-phone.validate(type="tel", name="incharge-phone", v-model="machine.incharge.phone")
                                 label(for="incharge-phone") Phone
 
-                        .row
+                        .row.no-margin
                             .input-field.col.s6
                                 input#supplier.validate(type="text", name="supplier", v-model="machine.supplier.name")
                                 label(for="supplier") Supplier
@@ -153,10 +155,10 @@ block content
 
                         
             .card-action
-                .row
+                .row.no-margin
                     .col.s12
                         //- a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-                        a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:$('#createmachineform').submit();") Submit
+                        a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:document.getElementById('createmachineform').submit();") Submit
 
 
 

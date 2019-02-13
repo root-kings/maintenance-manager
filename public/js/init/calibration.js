@@ -1,8 +1,13 @@
 var upcomingview;
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function() {
 
-    $.get('/machines/list', function (listmachines) {
+    fetch('/machines/list').then(function(response) {
+        return response.json();
+    }).then(function (listmachines) {
+
+        
+
         listmachines.map(function (machine) {
             machine.soondays = moment(machine.checkup.next).diff(moment(), "days");
             machine.soon = (machine.soondays <= 10) ? true : false;
@@ -34,9 +39,9 @@ $(document).ready(function () {
                 M.updateTextFields();
             }
             
-        })
+        });
 
-    })
+    });
 
 });
 
@@ -48,17 +53,32 @@ function machineEdit(id) {
 function addRecord(id) {
     var record = {
         id: id,
-        date: $("#date" + id).val(),
+        date: document.getElementById("date" + id).value,
         //remark: $("#remark" + id).val()
     }
 
-    console.log(record);
+    // console.log(record);
 
-    $.post('/api/machine/record/add', record, function (result) {
+    fetch('/api/machine/record/add',{
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        headers: {
+            "Content-Type": "application/json",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify(record), // body data type must match "Content-Type" header
+    }).then(function(response){
+        return response.json();
+    }).then(function(result){
         if (result) {
             window.location.reload();
         }
-    })
+    });
+    /* $.post('/api/machine/record/add', record, function (result) {
+        if (result) {
+            window.location.reload();
+        }
+    }) */
 
 }
 
@@ -68,27 +88,72 @@ function removeRecord(id, val) {
         date: val
     }
 
-    console.log(record);
+    // console.log(record);
 
+    fetch('/api/machine/record/remove',{
+        method: "POST", 
+        mode: "cors", 
+        headers: {
+            "Content-Type": "application/json",
+            
+        },
+        body: JSON.stringify(record), 
+    }).then(function(response){
+        return response.json();
+    }).then(function(result){
+        if (result) {
+            window.location.reload();
+        }
+    });
+/* 
     $.post('/api/machine/record/remove', record, function (result) {
         if (result) {
             window.location.reload();
         }
-    })
+    }) */
 
 }
 
 function machineDelete(id) {
     if (confirm("Delete this machine?")) {
-        $.post('/api/machine/' + id + '/delete', function (result) {
-            window.location = '/machines';
+        fetch('/api/machine/' + id + '/delete',{
+            method: "POST", 
+            mode: "cors", 
+            
+        }).then(function(response){
+            return response.json();
+        }).then(function(result){
+            if (result) {
+                window.location.reload();
+            }
         });
+
+        /* $.post('/api/machine/' + id + '/delete', function (result) {
+            window.location.reload();
+        }); */
     }
 }
 function saveRemark(event, id){
-    $.post('/api/machine/' + id + '/remark', {remark:event.target.value}, function (result) {
-        // window.location = '/machines';
-        M.toast({html:'Remark updated!'});
+
+    fetch('/api/machine/' + id + '/remark',{
+        method: "POST", 
+        mode: "cors", 
+        headers: {
+            "Content-Type": "application/json",
+            
+        },
+        body: JSON.stringify({remark:event.target.value}),
+    }).then(function(response){
+        return response.json();
+    }).then(function(result){
+        if (result) {
+            M.toast({html:'Remark updated!'});
+        }
     });
+/* 
+    $.post('/api/machine/' + id + '/remark', {remark:event.target.value}, function (result) {
+        // window.location.reload();
+        M.toast({html:'Remark updated!'});
+    }); */
     //console.log(id,event.target.value);
 }
