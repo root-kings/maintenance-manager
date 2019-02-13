@@ -195,3 +195,8 @@ a.breadcrumb::before {
 span.tiny {
 	font-size: 0.7em;
 }
+
+.modal.bottom-sheet.modal-fixed-footer {
+	max-height: 90%;
+	height: 90%;
+}
