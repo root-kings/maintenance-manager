@@ -60,19 +60,20 @@ block content
 
 
 
-    #sparestagemodal.modal.modal-fixed-footer
+    #sparestagemodal.modal.modal-fixed-footer(v-once)
         .modal-content
 
             .row
                 h4.col.s12 Update stages
                 .col.s12
                     .row
+                        h5.light.col.s12 P. R. Raised
                         .input-field.col.s12
-                            input#date.datepicker.validate(type="text", name="date")
+                            input#date.datepicker.validate(type="text", name="date", v-model="spare.requisition.date")
                             label(for="date") Date
 
                         .input-field.col.s12
-                            input#timeout.validate(type="text", name="timeout")
+                            input#timeout.validate(type="text", name="timeout", v-model="spare.requisition.timeout")
                             label(for="timeout") Timeout (days)
 
         .modal-footer
@@ -95,9 +96,9 @@ block content
                 i.material-icons.right chevron_right
 
 
-        ul.collapsible
+        ul.collapsible.z-depth-0
             li(v-for="spare in spares")
-                .collapsible-header
+                .collapsible-header.z-depth-0
                     p.full-width.no-margin {{spare.case}} 
                         span.right {{spare.currentstage}}
                 .collapsible-body.card.no-padding.z-depth-0
@@ -177,7 +178,7 @@ block content
                         //- a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+spare._id") View
                         //-     i.material-icons.left visibility
 
-                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(@click='spareEditTimerModal(spare._id)')
+                        a.btn.btn-flat.btn-bordered.curvy.modal-trigger(@click='spareEditTimerModal(spare._id)' data-target="sparestagemodal")
                             i.material-icons access_time
                         a.btn.btn-flat.btn-bordered.curvy.modal-trigger(@click='spareEdit(spare._id)')
                             i.material-icons edit

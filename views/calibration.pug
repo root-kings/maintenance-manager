@@ -109,7 +109,7 @@ block content
             i.material-icons.large add
 
 
-    #upcoming
+    #upcoming(v-once)
         //- .row
             .col.s12.m6(v-for="machine in machines")
                 //- .card.rounded
@@ -145,9 +145,9 @@ block content
                     span.col.s6 {{machine.soondays}} days left
 
 
-        ul.collapsible(v-once)
+        ul.collapsible.z-depth-0
             li(v-for="machine in machines")
-                .collapsible-header(v-bind:class="{'firewatch white-text': machine.soon }")
+                .collapsible-header.z-depth-0(v-bind:class="{'burning-orange white-text': machine.soon }")
                     p.full-width.no-margin {{machine.name}} 
                         span.right Next: {{machine.checkup.next}} | {{machine.soondays}} days left
                 .collapsible-body.card.no-padding.z-depth-0
