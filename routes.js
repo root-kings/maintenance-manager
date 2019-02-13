@@ -85,4 +85,10 @@ router.post('/api/spare/:id/stage', spareController.spare_stage_update_post)
 router.post('/api/spare/:id/stage/timer', spareController.spare_stage_timer_update_post)
 
 
+// Testing -----
+
+router.get('/calibration/dark', (req, res) => {
+	res.render('calibration-dark')
+})
+
 module.exports = router
