@@ -23,7 +23,7 @@ block content
                         .input-field.col.s12
                             input#name.validate(type="text", name="name")
                             label(for="name") Name
-                    
+
                         .input-field.col.s6
                             input#interval.validate(type="text", name="interval")
                             label(for="interval") Checkup Interval
@@ -61,14 +61,14 @@ block content
                         .input-field.col.s4
                             input#shop.validate(type="text", name="shop")
                             label(for="shop") Shop
-                    
-                        
-                   
+
+
+
                     .row
                         .input-field.col.s6
                             input#incharge.validate(type="text", name="incharge")
                             label(for="incharge") Incharge
-                    
+
                         .input-field.col.s6
                             input#incharge-email.validate(type="email", name="incharge-email")
                             label(for="incharge-email") Incharge Email
@@ -81,7 +81,7 @@ block content
                         .input-field.col.s6
                             input#supplier.validate(type="text", name="supplier")
                             label(for="supplier") Supplier
-                    
+
                         .input-field.col.s6
                             input#supplier-email.validate(type="email", name="supplier-email")
                             label(for="supplier-email") Supplier Email
@@ -93,7 +93,7 @@ block content
                             input#supplier-reminder.validate(type="number", name="supplier-reminder", value="10", min="0")
                             label(for="supplier-reminder") Reminder before (days)
 
-                    
+
 
 
         .modal-footer
@@ -154,7 +154,7 @@ block content
                     .card-content
                         .row.no-margin
                             p.light.col.s12 # {{machine._id}}
-                            
+
                             span.card-title.col.s12.grey-text.text-darken-4 {{machine.name}}
 
                             p.light.col.s12 Case through: {{machine.case}}
@@ -163,7 +163,7 @@ block content
                     .card-content
                         .row.no-margin
                             h5.col.s12.light Testing
-                            
+
                             p.col.s12 Test: #[span.strong {{machine.testing}} ]
 
                             p.col.s4 Next 
@@ -182,27 +182,27 @@ block content
                     .card-content
                         .row.no-margin        
                             h5.col.s12.light Supplier
-                            
+
                             h6.col.s12.no-margin {{machine.supplier.name}}
 
                             p.col.s12 Email: {{machine.supplier.email}}
-                            
+
                             p.col.s12 Phone: {{machine.supplier.phone}}
-                            
+
                             p.col.s12 Reminder: {{machine.supplier.reminder}} days
 
                     .divider
                     .card-content
                         .row.no-margin        
                             h5.col.s12.light Incharge
-                            
+
                             h6.col.s12.no-margin {{machine.incharge.name}}
 
                             p.col.s12 Email: {{machine.incharge.email}}
-                            
+
                             p.col.s12 Phone: {{machine.incharge.phone}}
-                            
-                            
+
+
 
 
                     .card-action
@@ -230,7 +230,7 @@ block content
 
                                 a.btn.btn-flat.btn-bordered.curvy(@click='machineEdit(machine._id)')
                                     i.material-icons edit
-                                
+
                                 a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='machineDelete(machine._id)')
                                     i.material-icons delete
 

@@ -2,101 +2,103 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var moment = require('moment')
 
-var SpareSchema = new Schema({
-    case: {
-        type: String,
-        default: ""
-    },
+var SpareSchema = new Schema(
+	{
+		case: {
+			type: String,
+			default: ''
+		},
 
-    requisition: {
-        timeout: {
-            type: Number,
-            default: 5
-        },
-        date: {
-            type: Date
-        }
-    },
-    vetting: {
-        timeout: {
-            type: Number,
-            default: 5
-        },
-        date: {
-            type: Date
-        }
-    },
-    tod: {
-        timeout: {
-            type: Number,
-            default: 5
-        },
-        date: {
-            type: Date
-        }
-    },
-    tsc: {
-        timeout: {
-            type: Number,
-            default: 5
-        },
-        date: {
-            type: Date
-        }
-    },
-    so: {
-        timeout: {
-            type: Number,
-            default: 5
-        },
-        date: {
-            type: Date
-        }
-    },
-    stage: {
-        type: Number,
-        min: 0,
-        max: 4,
-        default: 0,
-        required: true
-    },
-    incharge: {
-        name: {
-            type: String,
-            default: ""
-        },
-        phone: {
-            type: String,
-            default: ""
-        },
-        email: {
-            type: String,
-            default: ""
-        }
-    },
-    supplier: {
-        name: {
-            type: String,
-            default: ""
-        },
-        phone: {
-            type: String,
-            default: ""
-        },
-        email: {
-            type: String,
-            default: ""
-        }
-    },
-
-}, {
-    toObject: {
-        virtuals: true
-    },
-    toJSON: {
-        virtuals: true
-    }
-})
+		requisition: {
+			timeout: {
+				type: Number,
+				default: 5
+			},
+			date: {
+				type: Date
+			}
+		},
+		vetting: {
+			timeout: {
+				type: Number,
+				default: 5
+			},
+			date: {
+				type: Date
+			}
+		},
+		tod: {
+			timeout: {
+				type: Number,
+				default: 5
+			},
+			date: {
+				type: Date
+			}
+		},
+		tsc: {
+			timeout: {
+				type: Number,
+				default: 5
+			},
+			date: {
+				type: Date
+			}
+		},
+		so: {
+			timeout: {
+				type: Number,
+				default: 5
+			},
+			date: {
+				type: Date
+			}
+		},
+		stage: {
+			type: Number,
+			min: 0,
+			max: 4,
+			default: 0,
+			required: true
+		},
+		incharge: {
+			name: {
+				type: String,
+				default: ''
+			},
+			phone: {
+				type: String,
+				default: ''
+			},
+			email: {
+				type: String,
+				default: ''
+			}
+		},
+		supplier: {
+			name: {
+				type: String,
+				default: ''
+			},
+			phone: {
+				type: String,
+				default: ''
+			},
+			email: {
+				type: String,
+				default: ''
+			}
+		}
+	},
+	{
+		toObject: {
+			virtuals: true
+		},
+		toJSON: {
+			virtuals: true
+		}
+	}
+)
 
 // SpareSchema
 //     .virtual('checkup.last')
@@ -110,25 +112,21 @@ var SpareSchema = new Schema({
 //         })[0]).format("DD MMM YYYY");
 //     });
 
-SpareSchema
-    .virtual('currentstage')
-    .get(function () {
-        switch (this.stage) {
-            case 0:
-                return "requisition";
-            case 1:
-                return "vetting";
-            case 2:
-                return "toe";
-            case 3:
-                return "tsc";
-            case 4:
-                return "so";
-            default:
-                return "unknown";
-        }
-
-    });
-
+SpareSchema.virtual('currentstage').get(function() {
+	switch (this.stage) {
+		case 0:
+			return 'requisition'
+		case 1:
+			return 'vetting'
+		case 2:
+			return 'toe'
+		case 3:
+			return 'tsc'
+		case 4:
+			return 'so'
+		default:
+			return 'unknown'
+	}
+})
 
 module.exports = mongoose.model('Spare', SpareSchema)

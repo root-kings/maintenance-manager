@@ -111,9 +111,9 @@ block content
                         .input-field.col.s6
                             input#so-timeout.validate(type="text", name="so-timeout", v-model="spare.so.timeout")
                             label(for="so-timeout") Timeout (days)
-                    
 
-                    
+
+
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
@@ -124,7 +124,7 @@ block content
 
 
 
-    
+
 
 
     #spares
@@ -148,7 +148,7 @@ block content
                                 //- i.material-icons.right.red-text(@click='spareDelete(spare._id)') delete
 
                             //- p.col.s12.light {{spare.currentstage}}
-                        
+
                             .step-indicator
                                 a.step(href='#!' v-bind:class="{'completed': (spare.stage>=0) }" ,@click="spareStageUpdate(spare._id, 0)") PR
                                     br
@@ -224,10 +224,10 @@ block content
                         a.btn.btn-flat.red.white-text.btn-bordered.curvy(@click='spareDelete(spare._id)')
                             i.material-icons delete
 
-    
 
 
-        
+
+
 
 
 block scripts

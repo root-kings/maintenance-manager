@@ -6,7 +6,7 @@ var MachineSchema = new Schema(
 	{
 		name: {
 			type: String,
-			default: ""
+			default: ''
 		},
 		// location: {
 		//     sector: {
@@ -23,38 +23,38 @@ var MachineSchema = new Schema(
 		// },
 		testing: {
 			type: String,
-			default: ""
+			default: ''
 		},
 		remark: {
 			type: String,
-			default: ""
+			default: ''
 		},
 		incharge: {
 			name: {
 				type: String,
-				default: ""
+				default: ''
 			},
 			phone: {
 				type: String,
-				default: ""
+				default: ''
 			},
 			email: {
 				type: String,
-				default: ""
+				default: ''
 			}
 		},
 		supplier: {
 			name: {
 				type: String,
-				default: ""
+				default: ''
 			},
 			phone: {
 				type: String,
-				default: ""
+				default: ''
 			},
 			email: {
 				type: String,
-				default: ""
+				default: ''
 			},
 			reminder: {
 				type: Number,
@@ -63,7 +63,7 @@ var MachineSchema = new Schema(
 		},
 		case: {
 			type: String,
-			default: "",
+			default: '',
 			enum: ['open', 'lte', 'cp', 'gfr']
 		},
 		checkup: {
@@ -73,7 +73,7 @@ var MachineSchema = new Schema(
 				},
 				unit: {
 					type: String,
-					default: ""
+					default: ''
 				}
 			},
 			history: [

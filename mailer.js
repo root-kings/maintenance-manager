@@ -1,1 +1,1 @@
-console.log("Hello! I will mail something.")
+console.log('Hello! I will mail something.')
