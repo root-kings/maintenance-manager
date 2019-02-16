@@ -5,7 +5,8 @@ $bg-page-sec: #000000;
 $bg-comp: #313549;
 $divider-color: rgba(160, 160, 160, 0.2);
 $high-fg: #ffbb00;
-body {
+$high-sec: #2196F3;
+body.dark {
 	background: $bg-page;
 	nav {
 		background: $bg-page;
@@ -70,6 +71,23 @@ body {
 			}
 			.collapsible-body.card {
 				background: $bg-comp;
+			}
+		}
+	}
+
+	main.sky-blue {
+		background: transparent;
+		.card-panel {
+			background: $bg-comp;
+			color: $primary-fg;
+			.header {
+				color: $high-fg;
+			}
+			h5 {
+				color: $sec-fg;
+			}
+			input {
+				color: $primary-fg;
 			}
 		}
 	}
