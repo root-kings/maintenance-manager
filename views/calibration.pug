@@ -18,7 +18,7 @@ block content
 
             .row
                 h4.col.s12 Create machine
-                form#createmachineform.col.s12(action='/machine/create', method='POST')
+                form#createmachineform.col.s12
                     .row
                         .input-field.col.s12
                             input#name.validate(type="text", name="name")
@@ -98,7 +98,7 @@ block content
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:document.getElementById('createmachineform').submit();") Submit
+            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:createMachine();") Submit
 
 
 

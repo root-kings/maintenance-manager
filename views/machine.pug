@@ -75,7 +75,7 @@ block content
                 .row.no-margin
                     p.col.s12.light # {{machine._id}}
                     h4.col.s12 Edit {{machine.name}}
-                    form#createmachineform.col.s12(v-bind:action='"/api/machine/"+machine._id+"/edit"', method='POST')
+                    form#createmachineform.col.s12
                         .row.no-margin
                             .input-field.col.s12
                                 input#name.validate(type="text", name="name", v-model="machine.name")
@@ -156,9 +156,10 @@ block content
 
             .card-action
                 .row.no-margin
-                    .col.s12
+                    .col.s12.right-align
                         //- a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-                        a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:document.getElementById('createmachineform').submit();") Submit
+                        a.btn.btn-flat.waves-effect(@click="window.history.back()") Back
+                        a.btn.waves-effect.waves-light.green.white-text(@click="updateMachine(machine._id)") Submit
 
 
 

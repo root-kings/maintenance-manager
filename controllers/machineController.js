@@ -35,6 +35,9 @@ exports.machines_list_get = (req, res) => {
 }
 
 exports.machine_create_post = (req, res) => {
+	// console.log(req.body)
+	// return res.send(true);
+
 	let newmachine = new Machine({
 		name: req.body.name,
 		// location: {
@@ -66,10 +69,11 @@ exports.machine_create_post = (req, res) => {
 		}
 	})
 
-	newmachine.save(err => {
+	newmachine.save((err, result) => {
 		if (err) return res.status(500).send(err)
 
-		return res.redirect('/calibration')
+		return res.send(result)
+		// return res.redirect('/calibration')
 	})
 
 	// console.log(req.body)
@@ -208,7 +212,8 @@ exports.machine_update_post = (req, res) => {
 	).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
-		if (result) return res.redirect('/calibration')
+		// if (result) return res.redirect('/calibration')
+		if (result) return res.send(result)
 
 		return res.send(false)
 	})
