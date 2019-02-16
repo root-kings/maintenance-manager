@@ -44,7 +44,7 @@ router.get('/api/machine/:id', machineController.machine_detail_get)
 
 router.get('/api/machines/deleteall', machineController.machines_delete_all_get)
 
-router.post('/machine/create', machineController.machine_create_post)
+router.post('/api/machine/create', machineController.machine_create_post)
 
 router.post(
 	'/api/machine/record/add',
@@ -74,7 +74,7 @@ router.get('/api/spare/:id', spareController.spare_detail_get)
 
 router.get('/api/spares/deleteall', spareController.spares_delete_all_get)
 
-router.post('/spare/create', spareController.spare_create_post)
+router.post('/api/spare/create', spareController.spare_create_post)
 
 router.post('/api/spare/:id/delete', spareController.spare_delete_post)
 
