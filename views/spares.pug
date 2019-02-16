@@ -11,7 +11,7 @@ block content
 
             .row
                 h4.col.s12 Create case
-                form#createspareform.col.s12(action='/spare/create', method='POST')
+                form#createspareform.col.s12
                     .row
                         .input-field.col.s12
                             input#case.validate(type="text", name="case")
@@ -46,7 +46,7 @@ block content
 
         .modal-footer
             a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:document.getElementById('createspareform').submit();") Submit
+            a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:createSpare();") Submit
 
 
 

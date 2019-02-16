@@ -11,7 +11,7 @@ block content
             .card-content
                 .row
                     h4.col.s12 Edit {{spare.case}}
-                    form#createspareform.col.s12(v-bind:action="'/api/spare/'+spare._id+'/edit'", method='POST')
+                    form#createspareform.col.s12
                         .row
                             .input-field.col.s12
                                 input#case.validate(type="text", name="case", v-model="spare.case")
@@ -42,8 +42,10 @@ block content
                                 label(for="supplier-phone") Supplier Phone  
             .card-action
                 .row
-                    //- a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-                    a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:document.getElementById('createspareform').submit();") Submit
+                    .col.s12.right-align
+                        //- a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
+                        a.btn.btn-flat.waves-effect(@click="window.history.back()") Back
+                        a.btn.waves-effect.waves-light.green.white-text(@click="updateSpare(spare._id)") Submit
 
 
 

@@ -23,7 +23,6 @@ exports.spares_get = (req, res) => {
 	})
 }
 
-
 exports.spare_create_post = (req, res) => {
 	let newdate = new moment()
 	let newspare = new Spare({
@@ -57,10 +56,10 @@ exports.spare_create_post = (req, res) => {
 	})
 	console.log(newspare)
 
-	newspare.save(err => {
+	newspare.save((err, result) => {
 		if (err) return res.status(500).send(err)
 
-		return res.redirect('/spares')
+		return res.send(result)
 	})
 
 	// console.log(req.body)
@@ -114,7 +113,7 @@ exports.spare_update_post = (req, res) => {
 	).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
-		if (result) return res.redirect('/spares')
+		if (result) return res.send(result)
 
 		return res.send(false)
 	})
@@ -155,7 +154,6 @@ exports.spare_stage_update_post = (req, res) => {
 }
 
 exports.spare_stage_timer_update_post = (req, res) => {
-
 	console.log(req.body)
 
 	Spare.findOneAndUpdate(
