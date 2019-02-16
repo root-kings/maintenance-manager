@@ -1,4 +1,4 @@
-extend components/login.pug
+extend components/layout.pug
 
 block content
     .valign-wrapper(style='height:100vh;background-image:linear-gradient(45deg, #36d1dc , #5b86e5)')
@@ -7,7 +7,7 @@ block content
             .col.s1
             .col.s10.z-depth-5.white(style='border-radius:10px;padding:30px')
 
-                .container(style='height=100px')
+                .container(style='height:100px')
                     .row
                         h3.col.s12.center Login 
                         .input-field.col.s12
@@ -19,6 +19,6 @@ block content
                             input#pw.validate(type='text')
                             label(for='pw') Password
                         .col.s12.center
-                            button.btn.waves-effect.waves-light(type='submit', name='action')(style='border-radius:64px;background-color:#42a5f5;height:50px')
+                            button.btn.waves-effect.waves-light(type='submit', name='action', style='border-radius:64px;background-color:#42a5f5;height:50px')
                                 | Login
-i.material-icons.right(style='width:50px')
+                            i.material-icons.right(style='width:50px')
