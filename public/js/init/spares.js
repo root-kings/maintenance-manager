@@ -1,18 +1,14 @@
 var spareview, stageEditView, stageEditViewModal
 
 document.addEventListener('DOMContentLoaded', function() {
-	fetch('/api/spares')
+	fetch(hostaddress + '/api/spares')
 		.then(function(response) {
 			return response.json()
 		})
 		.then(function(listspares) {
 			listspares.forEach(spare => {
-				spare.requisition.date = moment(spare.requisition.date).format(
-					'YYYY-MM-DD'
-				)
-				spare.vetting.date = moment(spare.vetting.date).format(
-					'YYYY-MM-DD'
-				)
+				spare.requisition.date = moment(spare.requisition.date).format('YYYY-MM-DD')
+				spare.vetting.date = moment(spare.vetting.date).format('YYYY-MM-DD')
 				spare.tod.date = moment(spare.tod.date).format('YYYY-MM-DD')
 				spare.tsc.date = moment(spare.tsc.date).format('YYYY-MM-DD')
 				spare.so.date = moment(spare.so.date).format('YYYY-MM-DD')
@@ -24,12 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					spares: listspares
 				},
 				mounted: function() {
-					M.Collapsible.init(
-						document.querySelectorAll('.collapsible'),
-						{
-							accordion: false
-						}
-					)
+					M.Collapsible.init(document.querySelectorAll('.collapsible'), {
+						accordion: false
+					})
 					// M.Modal.init(document.querySelectorAll('.modal'))
 					// M.Datepicker.init(
 					// 	document.querySelectorAll('.datepicker'),
@@ -52,7 +45,7 @@ function spareEdit(id) {
 
 function spareDelete(id) {
 	if (confirm('Delete this spare?')) {
-		fetch('/api/spare/' + id + '/delete', {
+		fetch(hostaddress + '/api/spare/' + id + '/delete', {
 			method: 'POST',
 			mode: 'cors'
 		})
@@ -71,7 +64,7 @@ function spareDelete(id) {
 }
 
 function spareStageUpdate(id, stage) {
-	fetch('/api/spare/' + id + '/stage', {
+	fetch(hostaddress + '/api/spare/' + id + '/stage', {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
@@ -94,9 +87,7 @@ function spareStageUpdate(id, stage) {
 }
 
 function spareEditTimerModal(id) {
-	stageEditViewModal = M.Modal.init(
-		document.getElementById('sparestagemodal' + id)
-	)
+	stageEditViewModal = M.Modal.init(document.getElementById('sparestagemodal' + id))
 
 	stageEditViewModal.open()
 
@@ -104,9 +95,7 @@ function spareEditTimerModal(id) {
 }
 
 function spareEditTimer(id) {
-	var newtimerform = new FormData(
-		document.getElementById('sparestagemodalform' + id)
-	)
+	var newtimerform = new FormData(document.getElementById('sparestagemodalform' + id))
 	var newtimerdata = {}
 	newtimerform.forEach(function(value, key) {
 		newtimerdata[key] = value
@@ -137,7 +126,7 @@ function spareEditTimer(id) {
 
 	console.log(newtimer)
 
-	fetch('/api/spare/' + id + '/stage/timer', {
+	fetch(hostaddress + '/api/spare/' + id + '/stage/timer', {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
@@ -157,18 +146,14 @@ function spareEditTimer(id) {
 }
 
 function updateView() {
-	fetch('/api/spares')
+	fetch(hostaddress + '/api/spares')
 		.then(function(response) {
 			return response.json()
 		})
 		.then(function(listspares) {
 			listspares.forEach(spare => {
-				spare.requisition.date = moment(spare.requisition.date).format(
-					'YYYY-MM-DD'
-				)
-				spare.vetting.date = moment(spare.vetting.date).format(
-					'YYYY-MM-DD'
-				)
+				spare.requisition.date = moment(spare.requisition.date).format('YYYY-MM-DD')
+				spare.vetting.date = moment(spare.vetting.date).format('YYYY-MM-DD')
 				spare.tod.date = moment(spare.tod.date).format('YYYY-MM-DD')
 				spare.tsc.date = moment(spare.tsc.date).format('YYYY-MM-DD')
 				spare.so.date = moment(spare.so.date).format('YYYY-MM-DD')

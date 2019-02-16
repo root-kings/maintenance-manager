@@ -1,16 +1,13 @@
 var upcomingview
 
 document.addEventListener('DOMContentLoaded', function() {
-	fetch('/machines/list')
+	fetch(hostaddress + '/machines/list')
 		.then(function(response) {
 			return response.json()
 		})
 		.then(function(listmachines) {
 			listmachines.map(function(machine) {
-				machine.soondays = moment(machine.checkup.next).diff(
-					moment(),
-					'days'
-				)
+				machine.soondays = moment(machine.checkup.next).diff(moment(), 'days')
 				machine.soon = machine.soondays <= 10 ? true : false
 			})
 
@@ -27,22 +24,16 @@ document.addEventListener('DOMContentLoaded', function() {
 				},
 
 				mounted: function() {
-					M.Collapsible.init(
-						document.querySelectorAll('.collapsible'),
-						{
-							accordion: false
-						}
-					)
+					M.Collapsible.init(document.querySelectorAll('.collapsible'), {
+						accordion: false
+					})
 					M.FormSelect.init(document.querySelectorAll('select'))
 					M.Modal.init(document.querySelectorAll('.modal'))
-					M.Datepicker.init(
-						document.querySelectorAll('.datepicker'),
-						{
-							defaultDate: new Date(),
-							setDefaultDate: true,
-							format: 'yyyy-mm-dd'
-						}
-					)
+					M.Datepicker.init(document.querySelectorAll('.datepicker'), {
+						defaultDate: new Date(),
+						setDefaultDate: true,
+						format: 'yyyy-mm-dd'
+					})
 					M.updateTextFields()
 				}
 			})
@@ -63,7 +54,7 @@ function addRecord(id) {
 
 	// console.log(record);
 
-	fetch('/api/machine/record/add', {
+	fetch(hostaddress + '/api/machine/record/add', {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, cors, *same-origin
 		headers: {
@@ -95,7 +86,7 @@ function removeRecord(id, val) {
 
 	// console.log(record);
 
-	fetch('/api/machine/record/remove', {
+	fetch(hostaddress + '/api/machine/record/remove', {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
@@ -121,7 +112,7 @@ function removeRecord(id, val) {
 
 function machineDelete(id) {
 	if (confirm('Delete this machine?')) {
-		fetch('/api/machine/' + id + '/delete', {
+		fetch(hostaddress + '/api/machine/' + id + '/delete', {
 			method: 'POST',
 			mode: 'cors'
 		})
@@ -140,7 +131,7 @@ function machineDelete(id) {
 	}
 }
 function saveRemark(event, id) {
-	fetch('/api/machine/' + id + '/remark', {
+	fetch(hostaddress + '/api/machine/' + id + '/remark', {
 		method: 'POST',
 		mode: 'cors',
 		headers: {

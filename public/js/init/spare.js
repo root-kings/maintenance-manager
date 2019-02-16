@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 function populate(id) {
-	fetch('/api/spare/' + id)
+	fetch(hostaddress + '/api/spare/' + id)
 		.then(function(response) {
 			return response.json()
 		})
