@@ -5,8 +5,7 @@ $bg-page-sec: #000000;
 $bg-comp: #313549;
 $divider-color: rgba(160, 160, 160, 0.2);
 $high-fg: #ffbb00;
-$high-sec: #2196F3;
-body.dark {
+body {
 	background: $bg-page;
 	nav {
 		background: $bg-page;
@@ -15,19 +14,6 @@ body.dark {
 		}
 		.sidenav-trigger {
 			color: $high-fg;
-		}
-		ul {
-			li {
-				a {
-					color: $sec-fg;
-				}
-				a:hover {
-					color: $primary-fg;
-				}
-				a.active {
-					color: $high-fg;
-				}
-			}
 		}
 	}
 	.collapsible {
@@ -44,9 +30,9 @@ body.dark {
 				background: $divider-color;
 			}
 			.card-content {
-				.strong {
-					color: $primary-fg;
-				}
+                .strong {
+                    color: $primary-fg;
+                }
 				.card-title {
 					color: $high-fg;
 				}
@@ -63,31 +49,14 @@ body.dark {
 		li.active {
 			background: $bg-comp;
 			.collapsible-header {
-				background: $bg-comp;
-				color: $primary-fg;
-				span.right {
-					color: $sec-fg;
-				}
+                background: $bg-comp;
+                color: $primary-fg;
+                span.right {
+                    color: $sec-fg;
+                }
 			}
 			.collapsible-body.card {
 				background: $bg-comp;
-			}
-		}
-	}
-
-	main.sky-blue {
-		background: transparent;
-		.card-panel {
-			background: $bg-comp;
-			color: $primary-fg;
-			.header {
-				color: $high-fg;
-			}
-			h5 {
-				color: $sec-fg;
-			}
-			input {
-				color: $primary-fg;
 			}
 		}
 	}
