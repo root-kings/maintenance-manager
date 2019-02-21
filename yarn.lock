@@ -2513,6 +2513,11 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
+msg91@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/msg91/-/msg91-0.0.6.tgz#50a253243734f75c660a02d1ee0bfb050e38fc48"
+  integrity sha1-UKJTJDc091xmCgLR7gv7BQ44/Eg=
+
 mute-stdout@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mute-stdout/-/mute-stdout-1.0.1.tgz#acb0300eb4de23a7ddeec014e3e96044b3472331"

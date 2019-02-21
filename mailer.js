@@ -1,11 +1,14 @@
 const sgMail = require('@sendgrid/mail')
+const msg91 = require('msg91')('247111AI4S9E1P5bea6b3a', 'krushn', '4')
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-const msg = {
-	to: [ 'joshi_tushar.ghrcecs@raisoni.net', 'zire_mrunalsingh.ghrcecs@raisoni.net'],
-	from: 'zire@chutya.com',
-	subject: 'Zire Gandu hi rhega saala zindagi bhar',
-	html: '<h1>Subject Dekh le Bhosdike</h1>'
+let msg = {
+	to: ['joshi_tushar.ghrcecs@raisoni.net', 'zire_mrunalsingh.ghrcecs@raisoni.net'],
+	from: 'notifications@rootkings.com',
+	subject: 'Fix maintenence manager email and sms notifications.',
+	html: '<h1>Jab tak nai kroge, tab tak ye program pareshan krega.</h1>'
 }
+
 sgMail
 	.sendMultiple(msg)
 	.then(result => {
@@ -22,3 +25,10 @@ sgMail
 		//Extract response msg
 		// const { headers, body } = response
 	})
+
+let mobileNo = [ '+919021735821', '+918208396310']
+let message = 'Fix maintenence manager email and sms notifications.'
+msg91.send(mobileNo, message, function(err, response) {
+	if (err) console.log(err)
+	console.log('Sent messages.')
+})
