@@ -38,8 +38,6 @@ var machineController = require('./controllers/machineController')
 
 router.get('/api/machines', machineController.machines_get)
 
-router.get('/machines/list', machineController.machines_list_get)
-
 router.get('/api/machine/:id', machineController.machine_detail_get)
 
 router.get('/api/machines/deleteall', machineController.machines_delete_all_get)
