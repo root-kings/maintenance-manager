@@ -5,7 +5,7 @@ $bg-page-sec: #000000;
 $bg-comp: #313549;
 $divider-color: rgba(160, 160, 160, 0.2);
 $high-fg: #ffbb00;
-body {
+body.dark {
 	background: $bg-page;
 	nav {
 		background: $bg-page;
