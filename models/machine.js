@@ -81,10 +81,6 @@ var MachineSchema = new Schema(
 					type: Date
 				}
 			]
-		},
-		scheduledMessage: {
-			type: Schema.Types.ObjectId,
-			ref: 'Message'
 		}
 	},
 	{
@@ -112,6 +108,13 @@ MachineSchema.virtual('checkup.last').get(function() {
 MachineSchema.virtual('checkup.next').get(function() {
 	return moment(this.checkup.last, 'DD MMM YYYY')
 		.add(this.checkup.interval.value, this.checkup.interval.unit)
+		.format('DD MMM YYYY')
+})
+
+MachineSchema.virtual('reminder.next').get(function() {
+	return moment(this.checkup.last, 'DD MMM YYYY')
+		.add(this.checkup.interval.value, this.checkup.interval.unit)
+		.subtract(this.supplier.reminder, 'days')
 		.format('DD MMM YYYY')
 })
 
