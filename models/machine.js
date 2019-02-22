@@ -81,6 +81,10 @@ var MachineSchema = new Schema(
 					type: Date
 				}
 			]
+		},
+		scheduledMessage: {
+			type: Schema.Types.ObjectId,
+			ref: 'Message'
 		}
 	},
 	{

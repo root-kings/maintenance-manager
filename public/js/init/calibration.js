@@ -35,7 +35,7 @@ function createMachine() {
 }
 
 function updateView() {
-	fetch(hostaddress + '/machines/list')
+	fetch(hostaddress + '/machines')
 		.then(function(response) {
 			return response.json()
 		})
@@ -56,7 +56,7 @@ function updateView() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-	fetch(hostaddress + '/machines/list')
+	fetch(hostaddress + '/machines')
 		.then(function(response) {
 			return response.json()
 		})

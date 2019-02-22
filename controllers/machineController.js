@@ -1,37 +1,32 @@
 var Machine = require('../models/machine')
+var Message = require('../models/message')
 // var Checkup = require('../models/checkup')
 
 var moment = require('moment')
 
 // API -----
 exports.machine_detail_get = (req, res) => {
-	Machine.findById(req.params.id).exec((err, result) => {
-		if (err) return res.status(500).send(err)
+	Machine.findById(req.params.id)
+		.populate('scheduledMessage')
+		.exec((err, result) => {
+			if (err) return res.status(500).send(err)
 
-		if (result) return res.send(result)
+			if (result) return res.send(result)
 
-		return res.send(false)
-	})
+			return res.send(false)
+		})
 }
 
 exports.machines_get = (req, res) => {
-	Machine.find({}, (err, result) => {
-		if (err) return res.status(500).send(err)
+	Machine.find({})
+		.populate('scheduledMessage')
+		.exec((err, result) => {
+			if (err) return res.status(500).send(err)
 
-		if (result) return res.send(result)
+			if (result) return res.send(result)
 
-		return res.send(false)
-	})
-}
-
-exports.machines_list_get = (req, res) => {
-	Machine.find({}).exec((err, result) => {
-		if (err) return res.status(500).send(err)
-
-		if (result) return res.send(result)
-
-		return res.send(false)
-	})
+			return res.send(false)
+		})
 }
 
 exports.machine_create_post = (req, res) => {
@@ -69,10 +64,24 @@ exports.machine_create_post = (req, res) => {
 		}
 	})
 
+	let newmessage = new Message({
+		to: {
+			email: req.body.email.split(';')
+		},
+		formachine: newmachine._id,
+		ondate: new moment().add(req.body.interval, req.body.unit).subtract(10, 'days')
+	})
+
+	newmachine.scheduledMessage = newmessage._id()
+
 	newmachine.save((err, result) => {
 		if (err) return res.status(500).send(err)
 
-		return res.send(result)
+		newmessage.save(err => {
+			if (err) return res.status(500).send(err)
+
+			return res.send(result)
+		})
 		// return res.redirect('/calibration')
 	})
 
@@ -83,20 +92,29 @@ exports.machine_create_post = (req, res) => {
 exports.machines_delete_all_get = (req, res) => {
 	Machine.remove({}, (err, result) => {
 		if (err) return res.status(500).send(err)
+		Message.remove({}, err => {
+			if (err) return res.status(500).send(err)
 
-		if (result) return res.send(result)
+			if (result) return res.send(result)
 
-		return res.send(false)
+			return res.send(false)
+		})
 	})
 }
 
 exports.machine_delete_post = (req, res) => {
-	Machine.findByIdAndRemove(req.params.id, (err, result) => {
+	Machine.findById(req.params.id).exec((err, result) => {
 		if (err) return res.status(500).send(err)
+		Message.findByIdAndRemove(result.scheduledMessage).exec(err => {
+			if (err) return res.status(500).send(err)
+			Machine.findByIdAndRemove(req.params.id, (err, result) => {
+				if (err) return res.status(500).send(err)
 
-		if (result) return res.send(true)
+				if (result) return res.send(true)
 
-		return res.send(false)
+				return res.send(false)
+			})
+		})
 	})
 }
 
@@ -118,9 +136,27 @@ exports.machine_record_add_post = (req, res) => {
 	).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
-		if (result) return res.send(result)
+		Machine.findById(req.body.id).exec((err, machine) => {
+			if (err) return res.status(500).send(err)
+			Message.findOneAndUpdate(
+				{
+					formachine: req.body.id
+				},
+				{
+					ondate: new moment(machine['checkup.last']).add(req.body.interval, req.body.unit).subtract(10, 'days')
+				},
+				{
+					safe: true,
+					upsert: true
+				}
+			).exec(err => {
+				if (err) return res.status(500).send(err)
 
-		return res.send(false)
+				if (result) return res.send(result)
+
+				return res.send(false)
+			})
+		})
 	})
 }
 
@@ -141,9 +177,28 @@ exports.machine_record_remove_post = (req, res) => {
 	).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
-		if (result) return res.send(result)
+		Machine.findById(req.body.id).exec((err, machine) => {
+			if (err) return res.status(500).send(err)
 
-		return res.send(false)
+			Message.findOneAndUpdate(
+				{
+					formachine: req.body.id
+				},
+				{
+					ondate: new moment(machine['checkup.last']).add(req.body.interval, req.body.unit).subtract(10, 'days')
+				},
+				{
+					safe: true,
+					upsert: true
+				}
+			).exec(err => {
+				if (err) return res.status(500).send(err)
+
+				if (result) return res.send(result)
+
+				return res.send(false)
+			})
+		})
 	})
 }
 

@@ -1,6 +1,12 @@
 const sgMail = require('@sendgrid/mail')
 const msg91 = require('msg91')('247111AI4S9E1P5bea6b3a', 'krushn', '4')
 
+// get list of all messgaes
+
+// filter messages for today
+
+// create array of objects as shonwn below
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 let msg = {
 	to: [ 'zire_mrunalsingh.ghrcecs@raisoni.net'],
