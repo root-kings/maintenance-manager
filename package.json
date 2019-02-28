@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "debug": "nodemon -r dotenv/config index.js"
+    "debug": "concurrently --kill-others \"gulp\" \"nodemon -r dotenv/config index.js\""
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "pug": "^2.0.3"
   },
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "del": "^3.0.0",
     "dotenv": "^6.2.0",
     "gulp": "^4.0.0",
