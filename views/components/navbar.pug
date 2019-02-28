@@ -52,3 +52,11 @@ ul#slide-out.sidenav
     li
         a(href="/about") About
             i.material-icons.left info
+
+    li
+        a(href="#!") Night Mode
+            i.material-icons.left palette
+            .switch.right.margined-top-compact
+                label
+                    input#theme(type="checkbox", name="theme", onclick="changeTheme(this)")
+                    span.lever
