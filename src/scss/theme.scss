@@ -7,6 +7,10 @@ $high-fg: #ffbb00;
 body.dark {
     background: $bg-page;
     color: $primary-fg;
+    #waitoverlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Black background with opacity */
+    }
     nav {
         background: $bg-page;
         .brand-logo {

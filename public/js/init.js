@@ -92,3 +92,11 @@ function changeTheme(checkbox) {
 		goLight()
 	}
 }
+
+function showWait() {
+	document.getElementById("waitoverlay").style.display = "block";
+  }
+  
+  function hideWait() {
+	document.getElementById("waitoverlay").style.display = "none";
+  } 

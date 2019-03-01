@@ -27,9 +27,14 @@ Machine.find({}).exec((err, result) => {
 		let email = {
 			// to: ['dayshmookh_krushn.ghrcecs@raisoni.net'],
 			to: machine.supplier.email.split(';'),
-			from: 'Krushn Dayshmookh <notifications@ofajassistant.com>',
-			subject: `Checkup of ${machine.name} due on ${machine.checkup.next}`,
-			html: '<p>Contact OFAJ ASAP.<p>'
+			from: 'Krushn Dayshmookh <notifications@ofajassistant.com>', // 
+			subject: `B.Q. for calibration of ${machine.name} from OFAJ`,
+			html: `<p>Kindly give B.Q. for calibration of ${machine.name}. \
+				   	<br>Thanking you! \
+					<br>With regards, \
+					<br>${machine.incharge.name} \
+					<br>${inchagephone}
+					<br>M.M. OFAJ Nagpur<p>`
 		}
 
 		emails.push(email)
@@ -48,7 +53,7 @@ Machine.find({}).exec((err, result) => {
 				let mobileNo = machine.incharge.phone.split(';')
 				// let mobileNo = ['+918208396310','+917767060939','+919011792002', '+919021735821']
 				
-				let message = `Email sent to supplier of ${machine.name}`
+				let message = `Email sent for calibration of ${machine.name} to ${machine.supplier.name}. ${moment(machine.reminder.next, 'DD MMM YYYY').fromNow('days')} days left.`
 
 				msg91.send(mobileNo, message, function(err, response) {
 					if (err) console.log(err)
@@ -72,35 +77,6 @@ Machine.find({}).exec((err, result) => {
 
 // create array of objects as shonwn below
 
-/* 
-let msg = {
-	to: ['zire_mrunalsingh.ghrcecs@raisoni.net'],
-	from: 'notifications@rootkings.com',
-	subject: 'Fix maintenence manager email and sms notifications.',
-	html: '<h1>Jab tak nai kroge, tab tak ye program pareshan krega.</h1>'
-}
 
-sgMail
-	.sendMultiple(msg)
-	.then(result => {
-		//Celebrate
-		console.log('Sent mails.')
-	})
-	.catch(error => {
-		//Log friendly error
-		console.error(error.toString())
+let sparesnotificationtext = `${name.spare} is waiting for ${nextstage} since the last ${timeout} days. Please check.` 
 
-		//Extract error msg
-		// const { message, code, response } = error
-
-		//Extract response msg
-		// const { headers, body } = response
-	})
-
-let mobileNo = ['+918208396310']
-let message = 'Fix maintenence manager email and sms notifications.'
-msg91.send(mobileNo, message, function(err, response) {
-	if (err) console.log(err)
-	console.log('Sent messages.')
-})
- */
