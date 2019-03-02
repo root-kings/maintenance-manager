@@ -46,3 +46,5 @@ Start development server with `yarn debug`.
   * [ ] '35 days' => '1 month 5 days'
   * [x] email schedule
   * [x] Sent email notification
+  * [ ] Log entries
+  * [ ] Error handling
