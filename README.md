@@ -33,15 +33,18 @@ Start development server with `yarn debug`.
     * [x] Details
     * [x] Manange Stages
     * [x] Create
-  * [ ] Scheduled emails
+  * [x] Scheduled emails
+  * [ ] Sent record
   * [ ] Homepage
   * [ ] About
   * [ ] User Profile
 
 * [ ] Tasks
   * [ ] Permission management
-  * [ ] Send Email
+  * [x] Send Email
   * [ ] waiting overlay
   * [ ] '35 days' => '1 month 5 days'
-  * [ ] email schedule
-  * [ ] Sent email notification
+  * [x] email schedule
+  * [x] Sent email notification
+  * [ ] Log entries
+  * [ ] Error handling

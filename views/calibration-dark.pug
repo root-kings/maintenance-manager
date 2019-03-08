@@ -11,7 +11,7 @@
     body.dark
         header
             .navbar-fixed
-                nav.darken-4.z-depth-0
+                nav.z-depth-0
                     .nav-wrapper
                         a(data-target="slide-out" href="#").sidenav-trigger
                             i.material-icons menu
@@ -62,13 +62,12 @@
 
 
         main
-
             #machinemodal.modal.modal-fixed-footer
                 .modal-content
 
                     .row
                         h4.col.s12 Create machine
-                        form#createmachineform.col.s12(action='/machine/create', method='POST')
+                        form#createmachineform.col.s12
                             .row
                                 .input-field.col.s12
                                     input#name.validate(type="text", name="name")
@@ -99,6 +98,19 @@
                                 .input-field.col.s12
                                     input#remark(type="text", name="remark")
                                     label(for="remark") Remarks
+
+
+                            //- .row
+                                .input-field.col.s4
+                                    input#sector.validate(type="text", name="sector")
+                                    label(for="sector") Sector
+                                .input-field.col.s4
+                                    input#number.validate(type="number", name="number")
+                                    label(for="number") Number
+                                .input-field.col.s4
+                                    input#shop.validate(type="text", name="shop")
+                                    label(for="shop") Shop
+
 
 
                             .row
@@ -135,7 +147,7 @@
 
                 .modal-footer
                     a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
-                    a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:document.getElementById('createmachineform').submit();") Submit
+                    a.btn.modal-close.waves-effect.waves-light.green.white-text(href="javascript:createMachine();") Submit
 
 
 
@@ -144,7 +156,6 @@
                 // Modal Trigger
                 a.waves-effect.waves-light.btn-floating.btn-large.red.modal-trigger(href="#machinemodal")
                     i.material-icons.large add
-
 
             #upcoming.container
 
@@ -156,7 +167,7 @@
                         .collapsible-body.card.no-padding.no-margin.z-depth-0
                             .card-content
                                 .row.no-margin
-                                    p.light.col.s12 # {{machine._id}}
+                                    //- p.light.col.s12 # {{machine._id}}
 
                                     span.card-title.col.s12 {{machine.name}}
 
@@ -178,7 +189,7 @@
                                     p.col.s4 Frequency
                                         br
                                         | {{machine.checkup.interval.value}} {{machine.checkup.interval.unit}}
-
+                                    //- p.col.s6 {{machine.location.shop}} - {{machine.location.sector}}
 
                             .divider
                             .card-content
@@ -191,7 +202,9 @@
 
                                     p.col.s12 Phone: {{machine.supplier.phone}}
 
-                                    p.col.s12 Reminder: {{machine.supplier.reminder}} days
+                                    p.col.s12 Reminder interval: {{machine.supplier.reminder}} days
+
+                                    p.col.s12 Reminder on: {{machine.reminder.next}} 
 
                             .divider
                             .card-content

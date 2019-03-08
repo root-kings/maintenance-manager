@@ -9,6 +9,10 @@ function clean() {
 	return del(['public/build', 'build'])
 }
 
+function cleanMobile() {
+	return del(['public/build'])
+}
+
 function mobilestatic() {
 	src('src/config.xml').pipe(dest('build'))
 	return src('public/**/*')
@@ -56,7 +60,7 @@ function dev() {
 }
 
 exports.clean = clean
-exports.mobile = parallel(mobilecss, mobilehtml, mobilestatic)
+exports.mobile = series(cleanMobile, parallel(mobilecss, mobilehtml, mobilestatic))
 // exports.devhtml = devhtml
 // exports.default = series(clean, html)
 exports.default = parallel(dev)

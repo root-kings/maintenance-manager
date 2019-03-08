@@ -111,4 +111,11 @@ MachineSchema.virtual('checkup.next').get(function() {
 		.format('DD MMM YYYY')
 })
 
+MachineSchema.virtual('reminder.next').get(function() {
+	return moment(this.checkup.last, 'DD MMM YYYY')
+		.add(this.checkup.interval.value, this.checkup.interval.unit)
+		.subtract(this.supplier.reminder, 'days')
+		.format('DD MMM YYYY')
+})
+
 module.exports = mongoose.model('Machine', MachineSchema)

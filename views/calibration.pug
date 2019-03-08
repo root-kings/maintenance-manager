@@ -3,7 +3,7 @@ extends components/layout.pug
 block styles
 
 block navtitle
-    a.teal-text.brand-logo(href="/") CALIBRATION
+    a.teal-text.brand-logo(href="/") CALIBRATION 
 
 block content
     //- .green.darken-2.hide-on-med-and-down
@@ -110,41 +110,7 @@ block content
 
 
     #upcoming
-        //- .row
-            .col.s12.m6(v-for="machine in machines")
-                //- .card.rounded
-                    .card-content
-                        span.card-title.grey-text.text-darken-4 {{machine.name}}
-                            a(href="#").orange-text
-                                i.material-icons.right star
-
-                        p {{machine.checkup.next}} 
-                    .card-action
-                        //- a.btn.btn-flat.btn-bordered.curvy(@click="markdone(machine._id)") Done
-                        //-     i.material-icons.left done
-                        //- a.btn.btn-flat.btn-bordered.curvy(@click="marklater(machine._id)") Later
-                        //-     i.material-icons.left access_time
-                        a.btn.btn-flat.btn-bordered.curvy(@click="viewMachine(machine._id)") View
-                            i.material-icons.left visibility
-
-                a(href="#" @click="viewMachine(machine._id)")
-                    .card.rounded(v-bind:class="{'red darken-1 white-text': machine.soon }")
-                        .card-content
-                            span.card-title.text-darken-4 {{machine.name}}                            
-                            p Next: {{machine.checkup.next}} 
-                            p Days left: {{machine.soondays}} 
-
-
-        //- .collection
-            a.collection-item.avatar(href="#" v-for="machine in machines" @click="viewMachine(machine._id)" v-bind:class="{'firewatch white-text': machine.soon }")
-
-                .row
-                    span.col.s12.title.text-darken-4 {{machine.name}}                            
-
-                    span.col.s6 Next: {{machine.checkup.next}} 
-                    span.col.s6 {{machine.soondays}} days left
-
-
+    
         ul.collapsible.z-depth-0
             li(v-for="machine in machines")
                 .collapsible-header.z-depth-0(v-bind:class="{'burning-orange white-text': machine.soon }")
@@ -153,7 +119,7 @@ block content
                 .collapsible-body.card.no-padding.z-depth-0
                     .card-content
                         .row.no-margin
-                            p.light.col.s12 # {{machine._id}}
+                            //- p.light.col.s12 # {{machine._id}}
 
                             span.card-title.col.s12.grey-text.text-darken-4 {{machine.name}}
 
@@ -189,7 +155,9 @@ block content
 
                             p.col.s12 Phone: {{machine.supplier.phone}}
 
-                            p.col.s12 Reminder: {{machine.supplier.reminder}} days
+                            p.col.s12 Reminder interval: {{machine.supplier.reminder}} days
+
+                            p.col.s12 Reminder on: {{machine.reminder.next}} 
 
                     .divider
                     .card-content
@@ -231,7 +199,7 @@ block content
                                 a.btn.btn-flat.btn-bordered.curvy(@click='machineEdit(machine._id)')
                                     i.material-icons edit
 
-                                a.btn.btn-flat.red.white-text.btn-bordered.curvy.modal-trigger(@click='machineDelete(machine._id)')
+                                a.btn.btn-flat.red-text.btn-bordered.curvy.modal-trigger(@click='machineDelete(machine._id)')
                                     i.material-icons delete
 
                 .modal.white(v-bind:id="'record'+machine._id")

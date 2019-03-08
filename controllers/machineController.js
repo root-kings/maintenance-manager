@@ -15,16 +15,6 @@ exports.machine_detail_get = (req, res) => {
 }
 
 exports.machines_get = (req, res) => {
-	Machine.find({}, (err, result) => {
-		if (err) return res.status(500).send(err)
-
-		if (result) return res.send(result)
-
-		return res.send(false)
-	})
-}
-
-exports.machines_list_get = (req, res) => {
 	Machine.find({}).exec((err, result) => {
 		if (err) return res.status(500).send(err)
 
@@ -72,7 +62,10 @@ exports.machine_create_post = (req, res) => {
 	newmachine.save((err, result) => {
 		if (err) return res.status(500).send(err)
 
+		if (err) return res.status(500).send(err)
+
 		return res.send(result)
+
 		// return res.redirect('/calibration')
 	})
 
