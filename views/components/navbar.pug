@@ -20,8 +20,14 @@
                 li
                     a.teal-text(href="/spares") Spares
 
+                //- if user.username == 'tusarpandey'
+                li
+                    a.teal-text(href="/users") Users
+
                 li
                     a.teal-text(href="/about") About
+                 li
+                    a.teal-text(href="javascript:logout()") Logout
 
 
 ul#slide-out.sidenav
@@ -30,9 +36,9 @@ ul#slide-out.sidenav
             .background
                 img(src="/images/office.jpg")
             a(href="#name")
-                span.white-text.name Tushar Pandey
+                span.white-text.name {user.name}
             a(href="#email")
-                span.white-text.email tusharpandey@gmail.com
+                span.white-text.email {user.email}
     li
         a(href="/") Home
             i.material-icons.left home
@@ -48,6 +54,11 @@ ul#slide-out.sidenav
         a(href="/spares") Spares
             i.material-icons.left settings
 
+    //- if user.username == 'tusarpandey'
+    li
+        a(href="/users") Users
+            i.material-icons.left people
+
 
     li
         a(href="/about") About
@@ -60,3 +71,7 @@ ul#slide-out.sidenav
                 label
                     input#theme(type="checkbox", name="theme", onclick="changeTheme(this)")
                     span.lever
+
+    li
+        a(href="javascript:logout()") Logout
+            i.material-icons.left lock
