@@ -24,12 +24,19 @@ router.get('/spare', (req, res) => {
 	res.render('spare')
 })
 
+router.get('/users', (req, res) => {
+	res.render('users')
+})
+
 router.get('/about', (req, res) => {
 	res.render('about')
 })
 
 router.get('/login', (req, res) => {
 	res.render('login')
+})
+router.get('/register', (req, res) => {
+	res.render('register')
 })
 
 // Machine -----
@@ -44,15 +51,9 @@ router.get('/api/machines/deleteall', machineController.machines_delete_all_get)
 
 router.post('/api/machine/create', machineController.machine_create_post)
 
-router.post(
-	'/api/machine/record/add',
-	machineController.machine_record_add_post
-)
+router.post('/api/machine/record/add', machineController.machine_record_add_post)
 
-router.post(
-	'/api/machine/record/remove',
-	machineController.machine_record_remove_post
-)
+router.post('/api/machine/record/remove', machineController.machine_record_remove_post)
 
 router.post('/api/machine/:id/delete', machineController.machine_delete_post)
 
@@ -82,6 +83,26 @@ router.post('/api/spare/:id/stage', spareController.spare_stage_update_post)
 
 router.post('/api/spare/:id/stage/timer', spareController.spare_stage_timer_update_post)
 
+
+// User -----
+
+var userController = require('./controllers/userController')
+
+router.get('/api/users', userController.users_get)
+
+router.get('/api/user/:id', userController.user_detail_get)
+
+router.get('/api/users/deleteall', userController.users_delete_all_get)
+
+router.post('/api/user/create', userController.user_create_post)
+
+router.post('/api/user/:id/delete', userController.user_delete_post)
+
+router.post('/api/user/:id/edit', userController.user_update_post)
+
+router.post('/api/user/:id/activate', userController.user_activate_post)
+
+router.post('/api/user/login', userController.user_login_post)
 
 // Testing -----
 
