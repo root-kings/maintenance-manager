@@ -6,7 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		goDark()
 		document.getElementById('theme').checked = true
 	}
+	if (!localStorage.getItem('loggeduser') && !(window.location.href.includes('login') || window.location.href.includes('register'))) {
+		window.location.href = location.hostname == '' ? 'file:///android_asset/www/login.html' : '/login'
+	}
 })
+function logout() {
+	localStorage.removeItem('loggeduser')
+	window.location.href = location.hostname == '' ? 'file:///android_asset/www/login.html' : '/login'
+}
 
 function hasClass(el, className) {
 	if (el != undefined) {
@@ -95,9 +102,9 @@ function changeTheme(checkbox) {
 }
 
 function showWait() {
-	document.getElementById("waitoverlay").style.display = "block";
-  }
-  
-  function hideWait() {
-	document.getElementById("waitoverlay").style.display = "none";
-  } 
+	document.getElementById('waitoverlay').style.display = 'block'
+}
+
+function hideWait() {
+	document.getElementById('waitoverlay').style.display = 'none'
+}
