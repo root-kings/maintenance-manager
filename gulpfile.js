@@ -63,4 +63,5 @@ exports.clean = clean
 exports.mobile = series(cleanMobile, parallel(mobilecss, mobilehtml, mobilestatic))
 // exports.devhtml = devhtml
 // exports.default = series(clean, html)
+exports.devCss = parallel(css)
 exports.default = parallel(dev)
