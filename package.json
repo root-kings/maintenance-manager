@@ -4,9 +4,11 @@
   "description": "A machine maintenance record management system",
   "main": "index.js",
   "scripts": {
+    "postinstall": "gulp devCss",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "debug": "concurrently --kill-others \"gulp\" \"nodemon -r dotenv/config index.js\""
+    "debug": "concurrently --kill-others \"gulp\" \"nodemon -r dotenv/config index.js\"",
+    "build": "gulp mobile"
   },
   "repository": {
     "type": "git",
