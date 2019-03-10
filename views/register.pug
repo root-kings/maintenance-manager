@@ -12,6 +12,7 @@ html(lang="en")
     body
         include components/waitoverlay.pug
 
+
         main.valign-wrapper.sky-blue
             .row
 
@@ -21,7 +22,11 @@ html(lang="en")
                         form#loginform.row
                             .col.s12
                                 h4.header.light.center OFAJ Assistant
-                                h5.center Login
+                                h5.center Register
+                            .input-field.col.s12
+                                i.material-icons.prefix.blue-text account_circle
+                                input#name.validate(name='name' type='text')
+                                label(for='name') Name
                             .input-field.col.s12
                                 i.material-icons.prefix.blue-text account_circle
                                 input#username.validate(name='username' type='text')
@@ -30,12 +35,19 @@ html(lang="en")
                                 i.material-icons.prefix.blue-text lock_circle
                                 input#password.validate(name='password' type='password')
                                 label(for='password') Password
+                            .input-field.col.s12
+                                i.material-icons.prefix.blue-text account_circle
+                                input#email.validate(name='email' type='email')
+                                label(for='email') Email
+                            .input-field.col.s12
+                                i.material-icons.prefix.blue-text account_circle
+                                input#phone.validate(name='phone' type='text')
+                                label(for='phone') Phone
                             .col.s12.center
-                                a.btn.btn-large.waves-effect.waves-light.blue.curvy(href='javascript: doLogin()') Login
+                                a.btn.btn-large.waves-effect.waves-light.blue.curvy(href='javascript: doRegister()') Register
                                 
                             .col.s12.center
-                                a.btn.btn-large.btn-flat.waves-effect.waves-light(href='/register') register
-                                
+                                a.btn.btn-large.btn-flat.waves-effect.waves-light(href='/login') login
 
         include components/scripts.pug
             script(src="/js/init/login.js")
