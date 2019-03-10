@@ -2,6 +2,7 @@ const hostaddress = location.hostname == '' ? 'https://root-maintenance-manager.
 document.addEventListener('DOMContentLoaded', function() {
 	M.AutoInit()
 	if (localStorage.getItem('theme') == 'dark') {
+		console.log('Setting dark theme')
 		goDark()
 		document.getElementById('theme').checked = true
 	}

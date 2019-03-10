@@ -4,6 +4,12 @@ $bg-page: #07000f;
 $bg-comp: #151427;
 $divider-color: rgba(160, 160, 160, 0.2);
 $high-fg: #ffbb00;
+nav {
+    .brand-logo {
+        font-size: 1.5rem;
+    }
+}
+
 body.dark {
     background: $bg-page;
     color: $primary-fg;
