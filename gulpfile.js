@@ -33,6 +33,7 @@ function mobilehtml() {
 		.pipe(replace(/href="\/calibration"/g, 'href="/calibration.html"'))
 		.pipe(replace(/href="\/spares"/g, 'href="/spares.html"'))
 		.pipe(replace(/href="\/about"/g, 'href="/about.html"'))
+		.pipe(replace(/href="\/users"/g, 'href="/users.html"'))
 		.pipe(replace(/href="\/login"/g, 'href="/login.html"'))
 		.pipe(replace(/href="\/register"/g, 'href="/register.html"'))
 		.pipe(replace(/"\//g, '"'))
