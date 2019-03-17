@@ -9,55 +9,18 @@ var SpareSchema = new Schema(
 			default: ''
 		},
 
-		requisition: {
-			timeout: {
-				type: Number,
-				default: 5
-			},
-			date: {
-				type: Date
+		stages: [
+			{
+				name: { type: String, default: '' },
+				timeout: { type: String, default: '' },
+				dateexpected: { type: Date },
+				datedone: { type: Date },
+				notes: { type: String, default: '' }
 			}
-		},
-		vetting: {
-			timeout: {
-				type: Number,
-				default: 5
-			},
-			date: {
-				type: Date
-			}
-		},
-		tod: {
-			timeout: {
-				type: Number,
-				default: 5
-			},
-			date: {
-				type: Date
-			}
-		},
-		tsc: {
-			timeout: {
-				type: Number,
-				default: 5
-			},
-			date: {
-				type: Date
-			}
-		},
-		so: {
-			timeout: {
-				type: Number,
-				default: 5
-			},
-			date: {
-				type: Date
-			}
-		},
+		],
+
 		stage: {
 			type: Number,
-			min: 0,
-			max: 4,
 			default: 0,
 			required: true
 		},
@@ -100,33 +63,8 @@ var SpareSchema = new Schema(
 	}
 )
 
-// SpareSchema
-//     .virtual('checkup.last')
-//     .get(function () {
-//         return moment(this.checkup.history.sort(function (date1, date2) {
-//             // This is a comparison function that will result in dates being sorted in
-//             // DESCENDING order.
-//             if (date1 > date2) return -1;
-//             if (date1 < date2) return 1;
-//             return 0;
-//         })[0]).format("DD MMM YYYY");
-//     });
-
 SpareSchema.virtual('currentstage').get(function() {
-	switch (this.stage) {
-		case 0:
-			return 'requisition'
-		case 1:
-			return 'vetting'
-		case 2:
-			return 'toe'
-		case 3:
-			return 'tsc'
-		case 4:
-			return 'so'
-		default:
-			return 'unknown'
-	}
+	return this.stages[this.stage]
 })
 
 module.exports = mongoose.model('Spare', SpareSchema)

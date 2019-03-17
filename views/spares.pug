@@ -1,12 +1,13 @@
 extends components/layout.pug
 
 block styles
+    link(rel="stylesheet", href="/css/steps.css")
 
 block navtitle
     a.teal-text.brand-logo.truncate(href="/") SPARE STATUS
 
 block content
-    
+
     #sparemodal.modal.modal-fixed-footer
         .modal-content
 
@@ -58,52 +59,24 @@ block content
             i.material-icons.large add
 
 
-
-
-
-
-
-
-
-
     #spares
-
-
-        //- .collection 
-            a.collection-item(v-for="spare in spares" @click="viewSpare(spare._id)") {{spare.case}}
-                i.material-icons.right chevron_right
 
 
         ul.collapsible.z-depth-0
             li(v-for="spare in spares")
                 .collapsible-header.z-depth-0
                     p.full-width.no-margin {{spare.case}} 
-                        span.right {{spare.currentstage}}
+                        span.right(v-if='spare.currentstage') {{spare.currentstage}}
                 .collapsible-body.card.no-padding.z-depth-0
                     .card-content
                         .row
                             p.col.s12.light # {{spare._id}}
                             span.col.s12.card-title.grey-text.text-darken-4 {{spare.case}}
-                                //- i.material-icons.right.red-text(@click='spareDelete(spare._id)') delete
 
-                            //- p.col.s12.light {{spare.currentstage}}
-
-                            .step-indicator
-                                a.step(href='#!' v-bind:class="{'completed': (spare.stage>=0) }" ,@click="spareStageUpdate(spare._id, 0)") PR
+                            .row
+                                a.center.step(href='#!',v-if='spare.stages' ,v-for="stage in spare.stages", v-bind:class="{'completed': (spare.stage >= stages.indexOf(stage)) }" ,@click="spareStageUpdate(spare._id, stages.indexOf(stage))") {{stage.name}}
                                     br
-                                    | #[span.tiny {{moment(spare.requisition.date).format('DD MMM \'YY')}} ]
-                                a.step(href='#!' v-bind:class="{'completed': (spare.stage>=1) }" ,@click="spareStageUpdate(spare._id, 1)") Vetting
-                                    br
-                                    | #[span.tiny {{moment(spare.vetting.date).format('DD MMM \'YY')}} ]
-                                a.step(href='#!' v-bind:class="{'completed': (spare.stage>=2) }" ,@click="spareStageUpdate(spare._id, 2)") TOD
-                                    br
-                                    | #[span.tiny {{moment(spare.tod.date).format('DD MMM \'YY')}} ]
-                                a.step(href='#!' v-bind:class="{'completed': (spare.stage>=3) }" ,@click="spareStageUpdate(spare._id, 3)") TSC
-                                    br
-                                    | #[span.tiny {{moment(spare.tsc.date).format('DD MMM \'YY')}} ]
-                                a.step(href='#!' v-bind:class="{'completed': (spare.stage>=4) }" ,@click="spareStageUpdate(spare._id, 4)") SO
-                                    br
-                                    | #[span.tiny {{moment(spare.so.date).format('DD MMM \'YY')}} ]
+                                    | #[span.tiny expected: {{moment(stage.expecteddate).format('DD MMM \'YY')}} ]
 
                         .row
                             h6.col.s12.light Incharge
@@ -120,41 +93,10 @@ block content
                                 br
                                 | Phone: {{spare.supplier.phone}}
 
-                        //- .row
-                            p.col.s4.strong Next 
-                                br
-                                | {{spare.checkup.next}}
-                            p.col.s4 Last
-                                br
-                                | {{spare.checkup.last}}
-                            p.col.s4 Frequency
-                                br
-                                | {{spare.checkup.interval.value}} {{spare.checkup.interval.unit}}
-                            //- p.col.s6 {{spare.location.shop}} - {{spare.location.sector}}
-
-
-
-
-
 
 
 
                     .card-action
-                        //- .input-field
-                            input(type="text", name="remark", v-bind:id="'remark'+spare._id")
-                            label(v-bind:for="'remark'+spare._id") Remark 
-
-                        //- .input-field
-                        //-     input.datepicker(type="text", name="date", v-bind:id="'date'+spare._id")
-                        //-     label(v-bind:for="'date'+spare._id") Add record date (yyyy-mm-dd)
-
-                        //- a.btn.btn-flat.btn-bordered.curvy(@click="addRecord(spare._id)") Add
-                        //-     i.material-icons.left add
-
-                        //- a.btn.btn-flat.btn-bordered.curvy(@click="viewspare(spare._id)") View
-                            i.material-icons.left visibility
-                        //- a.btn.btn-flat.btn-bordered.curvy.modal-trigger(v-bind:href="'#record'+spare._id") View
-                        //-     i.material-icons.left visibility
 
                         a.btn.btn-flat.btn-bordered.curvy(@click='spareEditTimerModal(spare._id)' data-target="sparestagemodal")
                             i.material-icons access_time
@@ -170,51 +112,16 @@ block content
                         .row
                             h4.col.s12 Update stages
                             form.col.s12(v-bind:action="'/api/spare/'+spare._id+'/stage'", v-bind:id="'sparestagemodalform'+spare._id")
-                                .row
-                                    h6.light.col.s12 P. R. Raised
-                                    .input-field.col.s6
-                                        input#requisition-date.datepicker.validate(type="text", name="requisition-date", v-model="spare.requisition.date")
-                                        label(for="requisition-date") Date
+                                
+                                .row(v-if="spare.stages", v-for='stage in spare.stages')
+                                    h6.light.col.s12 {{stage.name}}
+                                    //- .input-field.col.s6
+                                        input.datepicker.validate(type="text", v-bind:name="'dateexpected'+stages.indexOf(stage))", v-bind:id="'dateexpected'+stages.indexOf(stage))", v-model="stage.dateexpected")
+                                        label(v-bind:for="'dateexpected'+stages.indexOf(stage))") Date Expected
 
-                                    .input-field.col.s6
-                                        input#requisition-timeout.validate(type="text", name="requisition-timeout", v-model="spare.requisition.timeout")
+                                    //- .input-field.col.s6
+                                        input#requisition-timeout.validate(type="text", name="requisition-timeout", v-model="stage.timeout")
                                         label(for="requisition-timeout") Timeout (days)
-                                .row
-                                    h6.light.col.s12 Vetting
-                                    .input-field.col.s6
-                                        input#vetting-date.datepicker.validate(type="text", name="vetting-date", v-model="spare.vetting.date")
-                                        label(for="vetting-date") Date
-
-                                    .input-field.col.s6
-                                        input#vetting-timeout.validate(type="text", name="vetting-timeout", v-model="spare.vetting.timeout")
-                                        label(for="vetting-timeout") Timeout (days)
-                                .row
-                                    h6.light.col.s12 TOD
-                                    .input-field.col.s6
-                                        input#tod-date.datepicker.validate(type="text", name="tod-date", v-model="spare.tod.date")
-                                        label(for="tod-date") Date
-
-                                    .input-field.col.s6
-                                        input#tod-timeout.validate(type="text", name="tod-timeout", v-model="spare.tod.timeout")
-                                        label(for="tod-timeout") Timeout (days)
-                                .row
-                                    h6.light.col.s12 TSC
-                                    .input-field.col.s6
-                                        input#tsc-date.datepicker.validate(type="text", name="tsc-date", v-model="spare.tsc.date")
-                                        label(for="tsc-date") Date
-
-                                    .input-field.col.s6
-                                        input#tsc-timeout.validate(type="text", name="tsc-timeout", v-model="spare.tsc.timeout")
-                                        label(for="tsc-timeout") Timeout (days)
-                                .row
-                                    h6.light.col.s12 SO
-                                    .input-field.col.s6
-                                        input#so-date.datepicker.validate(type="text", name="so-date", v-model="spare.so.date")
-                                        label(for="so-date") Date
-
-                                    .input-field.col.s6
-                                        input#so-timeout.validate(type="text", name="so-timeout", v-model="spare.so.timeout")
-                                        label(for="so-timeout") Timeout (days)
 
 
 
@@ -222,13 +129,6 @@ block content
                     .modal-footer
                         a.modal-close.waves-effect.waves-red.btn-flat.red-text(href="#!") Cancel
                         a.btn.modal-close.waves-effect.waves-light.green.white-text(@click="spareEditTimer(spare._id)") Submit
-
-
-
-
-
-
-
 
 
 block scripts

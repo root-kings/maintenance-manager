@@ -8,11 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(function(listspares) {
 			listspares.forEach(spare => {
-				spare.requisition.date = moment(spare.requisition.date).format('YYYY-MM-DD')
-				spare.vetting.date = moment(spare.vetting.date).format('YYYY-MM-DD')
-				spare.tod.date = moment(spare.tod.date).format('YYYY-MM-DD')
-				spare.tsc.date = moment(spare.tsc.date).format('YYYY-MM-DD')
-				spare.so.date = moment(spare.so.date).format('YYYY-MM-DD')
+				if (spare.stages) spare.stages.forEach(stage => (stage.dateexpected = moment(stage.dateexpected).format('YYYY-MM-DD')))
 			})
 
 			spareview = new Vue({
@@ -37,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					hideWait()
 				}
 			})
+			console.log('hello')
 		})
 })
 

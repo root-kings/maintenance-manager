@@ -5,9 +5,7 @@ const bodyParser = require('body-parser')
 const logger = require('morgan')
 
 const PORT = process.env.PORT || 3000
-const DBPORT =
-	process.env.MONGODB_URI ||
-	'mongodb://heroku_glpd1cfw:p4g2fbe0l74homdtpals7rg0cm@ds157574.mlab.com:57574/heroku_glpd1cfw'
+const DBPORT = process.env.MONGODB_URI || 'mongodb://heroku_glpd1cfw:p4g2fbe0l74homdtpals7rg0cm@ds157574.mlab.com:57574/heroku_glpd1cfw'
 
 var app = express()
 
