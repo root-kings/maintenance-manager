@@ -13,7 +13,7 @@ var SpareSchema = new Schema(
 			{
 				name: { type: String, default: '' },
 				timeout: { type: String, default: '' },
-				dateexpected: { type: Date },
+				// dateexpected: { type: Date },
 				datedone: { type: Date },
 				notes: { type: String, default: '' }
 			}
@@ -24,6 +24,7 @@ var SpareSchema = new Schema(
 			default: 0,
 			required: true
 		},
+		
 		incharge: {
 			name: {
 				type: String,
