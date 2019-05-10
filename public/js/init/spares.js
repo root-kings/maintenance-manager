@@ -1,22 +1,36 @@
-var spareview, stageEditView, stageEditViewModal
+var spareview, stageEditView, stageEditViewModal, sparestageModal, sparestageEditModal
 
 document.addEventListener('DOMContentLoaded', function() {
+	sparestageEditModal = M.Modal.init(document.getElementById('sparestageeditmodal'))
+
 	showWait()
-	fetch(hostaddress + '/api/spares')
-		.then(function(response) {
-			return response.json()
-		})
-		.then(function(listspares) {
-			listspares.forEach(spare => {
-				if (spare.stages) spare.stages.forEach(stage => (stage.dateexpected = moment(stage.dateexpected).format('YYYY-MM-DD')))
-			})
+	// fetch(hostaddress + '/api/spares')
+	// 	.then(function(response) {
+	// 		return response.json()
+	// 	})
+	// 	.then(function(listspares) {
+	// 		// listspares.forEach(spare => {
+	// 		// 	// if (spare.stages) spare.stages.forEach(stage => (stage.dateexpected = moment(stage.dateexpected).format('YYYY-MM-DD')))
+	// 		// })
 
 			spareview = new Vue({
 				el: '#spares',
 				data: {
-					spares: listspares
+					spares: [],
+					newstage: {
+						name: '',
+						dateexpected: '',
+						timeout: '',
+						datedone: '',
+						notes: ''
+					},
+					selectedSpare: {
+						stages: []
+					},
+					selectedStage: -1
 				},
 				mounted: function() {
+					updateView()
 					M.Collapsible.init(document.querySelectorAll('.collapsible'), {
 						accordion: false
 					})
@@ -31,10 +45,30 @@ document.addEventListener('DOMContentLoaded', function() {
 					// )
 					M.updateTextFields()
 					hideWait()
+				},
+				methods: {
+					addStage: function(spareindex, stageindex = -1) {
+						// console.log(spareindex)
+
+						this.selectedSpare.stages.push(this.newstage)
+
+						spareStageUpdate(this.selectedSpare._id, this.selectedSpare.stages)
+						this.newstage = {
+							name: '',
+							dateexpected: '',
+							timeout: '',
+							datedone: '',
+							notes: ''
+						}
+						// M.updateTextFields()
+					},
+					addStageModal: function(spareindex) {
+						sparestageEditModal.open()
+					}
 				}
 			})
-			console.log('hello')
-		})
+			// console.log('hello')
+		// })
 })
 
 function spareEdit(id) {
@@ -65,15 +99,18 @@ function spareDelete(id) {
 	}
 }
 
-function spareStageUpdate(id, stage) {
+function spareStageUpdate(id, stages) {
 	showWait()
+	console.log('Seleceted ID:', spareview.selectedSpare._id)
+	console.log('ID:', id)
+	console.log('Stages:', stages)
 	fetch(hostaddress + '/api/spare/' + id + '/stage', {
 		method: 'POST',
 		mode: 'cors',
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({ stage: stage })
+		body: JSON.stringify({ stages: stages })
 	})
 		.then(function(response) {
 			return response.json()
@@ -90,9 +127,12 @@ function spareStageUpdate(id, stage) {
 	}); */
 }
 
-function spareEditTimerModal(id) {
-	stageEditViewModal = M.Modal.init(document.getElementById('sparestagemodal' + id))
+function spareEditTimerModal(id, index) {
+	stageEditViewModal = M.Modal.init(document.getElementById('sparestagemodal'))
 
+	spareview.selectedSpare = spareview.spares[index]
+
+	console.log(spareview.selectedSpare)
 	stageEditViewModal.open()
 
 	M.updateTextFields()
@@ -106,28 +146,7 @@ function spareEditTimer(id) {
 		newtimerdata[key] = value
 	})
 
-	var newtimer = {
-		requisition: {
-			date: new Date(newtimerdata['requisition-date']),
-			timeout: newtimerdata['requisition-timeout']
-		},
-		so: {
-			date: new Date(newtimerdata['so-date']),
-			timeout: newtimerdata['so-timeout']
-		},
-		tod: {
-			date: new Date(newtimerdata['tod-date']),
-			timeout: newtimerdata['tod-timeout']
-		},
-		tsc: {
-			date: new Date(newtimerdata['tsc-date']),
-			timeout: newtimerdata['tsc-timeout']
-		},
-		vetting: {
-			date: new Date(newtimerdata['vetting-date']),
-			timeout: newtimerdata['vetting-timeout']
-		}
-	}
+	var newtimer = {}
 
 	console.log(newtimer)
 
@@ -159,11 +178,17 @@ function updateView() {
 		})
 		.then(function(listspares) {
 			listspares.forEach(spare => {
-				spare.requisition.date = moment(spare.requisition.date).format('YYYY-MM-DD')
-				spare.vetting.date = moment(spare.vetting.date).format('YYYY-MM-DD')
-				spare.tod.date = moment(spare.tod.date).format('YYYY-MM-DD')
-				spare.tsc.date = moment(spare.tsc.date).format('YYYY-MM-DD')
-				spare.so.date = moment(spare.so.date).format('YYYY-MM-DD')
+
+				spare.stages[0].dateexpected = spare.stages[0].datedone
+				for (i = 1; i < spare.stages.length; i++) {
+					spare.stages[i].dateexpected = moment(spare.stages[i-1].datedone).add(spare.stages[i].timeout,'days')
+				}
+
+				// 	spare.newstage = {
+				// 		dateexpected: '',
+				// 		timeout: '',
+				// 		datedone: ''
+				// 	}
 			})
 
 			spareview.spares = listspares
