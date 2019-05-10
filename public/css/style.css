@@ -173,7 +173,7 @@ span.tiny {
 	font-size: 0.7em;
 }
 
-.modal.bottom-sheet.modal-fixed-footer {
+.modal.bottom-sheet {
 	max-height: 90%;
 	height: 90%;
 }
