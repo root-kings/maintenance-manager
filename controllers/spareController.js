@@ -36,22 +36,6 @@ exports.spare_create_post = (req, res) => {
 			name: req.body.supplier,
 			phone: req.body['supplier-phone'],
 			email: req.body['supplier-email']
-		},
-
-		requisition: {
-			date: newdate
-		},
-		vetting: {
-			date: new moment(newdate).add(5, 'days')
-		},
-		tod: {
-			date: new moment(newdate).add(10, 'days')
-		},
-		tsc: {
-			date: new moment(newdate).add(15, 'days')
-		},
-		so: {
-			date: new moment(newdate).add(20, 'days')
 		}
 	})
 	console.log(newspare)
@@ -123,23 +107,13 @@ exports.spare_update_post = (req, res) => {
 }
 
 exports.spare_stage_update_post = (req, res) => {
-	const stages = ['requisition', 'vetting', 'tod', 'tsc', 'so']
-
-	state = {}
-
-	state.stage = req.body.stage
-
-	state[stages[req.body.stage]] = {
-		date: new moment()
-	}
-
 	// console.log(state)
 
 	Spare.findOneAndUpdate(
 		{
 			_id: req.params.id
 		},
-		state,
+		{ stages: req.body.stages },
 		{
 			safe: true,
 			upsert: true
