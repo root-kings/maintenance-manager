@@ -42,7 +42,7 @@ Start development server with `yarn debug`.
 * [ ] Tasks
   * [ ] Permission management
   * [x] Send Email
-  * [ ] waiting overlay
+  * [x] waiting overlay
   * [ ] '35 days' => '1 month 5 days'
   * [x] email schedule
   * [x] Sent email notification
