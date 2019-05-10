@@ -27,7 +27,7 @@ Machine.find({}).exec((err, result) => {
 		let email = {
 			// to: ['dayshmookh_krushn.ghrcecs@raisoni.net'],
 			to: machine.supplier.email.split(';'),
-			from: 'Krushn Dayshmookh <notifications@ofajassistant.com>', // 
+			from: 'M.M. OFAJ Nagpur <notifications@ofajassistant.com>', // 
 			subject: `B.Q. for calibration of ${machine.name} from OFAJ`,
 			html: `<p>Kindly give B.Q. for calibration of ${machine.name}. \
 				   	<br>Thanking you! \
@@ -44,9 +44,9 @@ Machine.find({}).exec((err, result) => {
 
 	sgMail
 		.sendMultiple(emails)
-		.then(result => {
-			//Celebrate
-			console.log('Sent mails.')
+			.then(result => {
+				//Celebrate
+				console.log('Sent mails.')
 			console.log('Sending messages...')
 
 			todayMachines.forEach(machine => {
