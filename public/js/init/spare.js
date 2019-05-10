@@ -46,6 +46,7 @@ function updateSpare(id) {
 		.then(function(result) {
 			if (result) {
 				M.toast({ html: 'Spare updated!' })
+				window.location.replace('/spares')
 			}
 		})
 }
