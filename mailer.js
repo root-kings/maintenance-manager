@@ -14,6 +14,15 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 // get list of all messgaes
 var Machine = require('./models/machine')
 
+function splitMulti(str, tokens){
+        var tempChar = tokens[0]; // We can use the first token as a temporary join character
+        for(var i = 1; i < tokens.length; i++){
+            str = str.split(tokens[i]).join(tempChar);
+        }
+        str = str.split(tempChar);
+        return str;
+}
+
 Machine.find({}).exec((err, result) => {
 	if (err) return console.error(err)
 	// filter messages for today
@@ -26,7 +35,7 @@ Machine.find({}).exec((err, result) => {
 	todayMachines.forEach(machine => {
 		let email = {
 			// to: ['dayshmookh_krushn.ghrcecs@raisoni.net'],
-			to: machine.supplier.email.split(';'),
+			to: splitMulti(machine.supplier.email, [';',',']),
 			from: 'M.M. OFAJ Nagpur <notifications@ofajassistant.com>', // 
 			subject: `B.Q. for calibration of ${machine.name} from OFAJ`,
 			html: `<p>Kindly give B.Q. for calibration of ${machine.name}. \
@@ -50,7 +59,7 @@ Machine.find({}).exec((err, result) => {
 			console.log('Sending messages...')
 
 			todayMachines.forEach(machine => {
-				let mobileNo = machine.incharge.phone.split(';')
+				let mobileNo = splitMulti(machine.incharge.phone, [';',','])
 				// let mobileNo = ['+918208396310','+917767060939','+919011792002', '+919021735821']
 				
 				let message = `Email sent for calibration of ${machine.name} to ${machine.supplier.name}. ${moment(machine.reminder.next, 'DD MMM YYYY').fromNow('days')} days left.`
