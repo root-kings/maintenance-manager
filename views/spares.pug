@@ -83,10 +83,11 @@ block content
                             p.col.s12.light # {{spare._id}}
                             span.col.s12.card-title.grey-text.text-darken-4 {{spare.case}}
 
-                            //- .row
-                                a.center.step(href='#!',v-if='spare.stages' ,v-for="stage in spare.stages", v-bind:class="{'completed': (spare.stage >= stages.indexOf(stage)) }" ,@click="spareStageUpdate(spare._id, stages.indexOf(stage))") {{stage.name}}
-                                    br
-                                    | #[span.tiny expected: {{moment(stage.expecteddate).format('DD MMM \'YY')}} ]
+                            
+                            .collection.col.s12 
+                                a.collection-item.step(v-if='spare.stages', v-for="(stage,stageindex) in spare.stages",:key="stageindex", v-bind:class="{'completed': (spare.stage >= stageindex) }" ,@click="spareStageDone(spareindex, stageindex)") {{stage.name}}
+                                    span.tiny expected: {{moment(stage.expecteddate).format('DD MMM \'YY')}} 
+                           
 
                         .row
                             h6.col.s12.light Incharge
@@ -108,7 +109,7 @@ block content
 
                     .card-action
 
-                        a.btn.btn-flat.btn-bordered.curvy(@click='spareEditTimerModal(spare._id, spareindex)' data-target="sparestagemodal")
+                        a.btn.btn-flat.btn-bordered.curvy(@click='spareEditTimerModal(spareindex)' data-target="sparestagemodal")
                             i.material-icons access_time
                         a.btn.btn-flat.btn-bordered.curvy(@click='spareEdit(spare._id)')
                             i.material-icons edit
@@ -135,7 +136,7 @@ block content
                                 th Done
                                 th Notes
                         tbody
-                            tr(v-for='stage in selectedSpare.stages')
+                            tr(v-for='(stage,stageindex) in selectedSpare.stages', @click="selectStage(stageindex)")
                                 td {{stage.name}}
                                 td {{stage.timeout}}
                                 td {{moment(stage.dateexpected).format('YYYY-MM-DD')}}
@@ -174,9 +175,12 @@ block content
                             .input-field.col.s12
                                 input.validate(type="text", name="stagenotes", id="stagenotes", v-model="newstage.notes")
                                 label(for="stagenotes") Notes
-                            .col.s6
-                                .btn.full-width(@click="addStage(selectedSpare, selectedStage)") Done
-                            
+                            .col.s4
+                                .btn.full-width(@click="addStage()") Save
+                            .col.s4
+                                .btn.full-width.yellow(@click="clearStage()", :class="{disabled: selectedStage == -1}") Clear
+                            .col.s4
+                                .btn.full-width.blue(@click="deleteStage()", :class="{disabled: selectedStage == -1}") Delete
 
                 //- .row
                     .col.s6

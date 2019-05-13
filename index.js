@@ -9,7 +9,7 @@ const DBPORT = process.env.MONGODB_URI || 'mongodb://heroku_glpd1cfw:p4g2fbe0l74
 
 var app = express()
 
-mongoose.connect(DBPORT)
+mongoose.connect(DBPORT, { useNewUrlParser: true })
 mongoose.Promise = global.Promise
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))

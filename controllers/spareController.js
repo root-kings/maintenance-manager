@@ -127,7 +127,7 @@ exports.spare_stage_update_post = (req, res) => {
 	})
 }
 
-exports.spare_stage_timer_update_post = (req, res) => {
+exports.spare_stage_done_update_post = (req, res) => {
 	console.log(req.body)
 
 	Spare.findOneAndUpdate(

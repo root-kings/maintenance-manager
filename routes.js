@@ -81,7 +81,7 @@ router.post('/api/spare/:id/edit', spareController.spare_update_post)
 
 router.post('/api/spare/:id/stage', spareController.spare_stage_update_post)
 
-router.post('/api/spare/:id/stage/timer', spareController.spare_stage_timer_update_post)
+router.post('/api/spare/:id/stage/done', spareController.spare_stage_done_update_post)
 
 
 // User -----
